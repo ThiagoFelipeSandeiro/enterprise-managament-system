@@ -11,13 +11,25 @@
         private $email;
 
         // Default Constructor
-        function __construct($employeeID, $password, $employeeName, $address, $email) {
-            $this->employeeID = $employeeID;
-            $this->password = $password;
+        function __construct() {
+            $this->employeeID = "";
+            $this->password = "";
             $this->loginStatus = FALSE;
-            $this->employeeName = $employeeName;
-            $this->address = $address;
-            $this->email = $email;
+            $this->employeeName = "";
+            $this->address = "";
+            $this->email = "";
+        }
+
+        // Custom Constructor
+        public static function with_row($row) {
+            $instance = new self();
+            $instance->set_employeeID($row['employeeID']);
+            $instance->set_password($row['password']);
+            $instance->set_loginStatus($row['loginStatus']);
+            $instance->set_employeeName($row['employeeName']);
+            $instance->set_address($row['address']);
+            $instance->set_email($row['email']);
+            return $instance;
         }
 
         // Getters

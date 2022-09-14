@@ -1,12 +1,6 @@
 <?php
 
-    //Sanitise data function.
-    function sanitise_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
+
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -14,7 +8,7 @@
         
         // Include
         require_once '../interface_layer/employee_facade_remote.inc';
-        
+
         $interface = new EmployeeFacadeRemote();
 
         $email = $password = $error_message = "";

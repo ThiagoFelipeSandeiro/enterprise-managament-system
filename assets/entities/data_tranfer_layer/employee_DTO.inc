@@ -54,22 +54,30 @@
 
         // Setters
         function set_employeeID($employeeID) {
-            $this->employeeID = $employeeID;
+            $this->employeeID = sanitise_input($employeeID);
         }
         function set_password($password) {
-            $this->password = $password;
+            $this->password = sanitise_input($password);
         }
         function set_loginStatus($loginStatus) {
-            $this->loginStatus = $loginStatus;
+            $this->loginStatus = sanitise_input($loginStatus);
         }
         function set_employeeName($employeeName) {
-            $this->employeeName = $employeeName;
+            $this->employeeName = sanitise_input($employeeName);
         }
         function set_address($address) {
-            $this->address = $address;
+            $this->address = sanitise_input($address);
         }
         function set_email($email) {
-            $this->email = $email;
+            $this->email = sanitise_input($email);
+        }
+
+        // Sanitise data function.
+        function sanitise_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
         }
     }
     

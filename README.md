@@ -55,5 +55,5 @@ INSERT INTO Employee(password, loginStatus, employeeName, address, email) VALUES
 
 # Homepage
 ```
-http://localhost/assets/web_layer/employee_login.php
+http://localhost/index.php
 ```

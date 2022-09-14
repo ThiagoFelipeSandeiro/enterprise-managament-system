@@ -98,6 +98,46 @@
                   </form>
                 </div>
 
+                <hr /><br />
+
+                <!-- Form -->
+                <div id="manage-product">
+                  <form id='manage-product-form' class='form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
+                    <?php require './login.inc';?>
+                    <section>
+
+                      <!-- Product Details -->
+                      <fieldset>
+                        <legend>Product Details</legend>
+
+                        <label for='productName'>Name</label>
+                          <input type='text' name='productName' placeholder='Product Name...' /><br /><br />
+
+                        <label for='productDescription'>Decription</label>
+                          <input type='text' name='productDescription' placeholder='Product Description...' /><br /><br />
+
+                        <label for='productUnitCost'>Unit Cost</label>
+                          <input type='number' name='productUnitCost' placeholder='Product Unit Cost...' step="0.01" value="0.00"/><br /><br />
+
+                        <label for='productQuantityOnHand'>Product Quantity in Stock</label>
+                          <input type='number' name='productQuantityOnHand' placeholder='Product Quantity in Stock...' step="1" value="0"/><br /><br />
+
+                        <label for='productSupplier'>Supplier</label>
+                          <input type='text' name='productSupplier' placeholder='Product Supplier...' /><br /><br />
+
+                        <label for='productCRUD'></label>
+                          <input type='radio' name='productCRUD' value='create' />Add
+                          <input type='radio' name='productCRUD' value='read' />Display
+                          <input type='radio' name='productCRUD' value='update' />Update
+                          <input type='radio' name='productCRUD' value='delete' />Delete<br /><br />
+
+                          <button form='manage-product-form' type='submit'>Submit</button>
+                      </fieldset>
+                      <br />
+                    </section>
+                  </form>
+                </div>
+
             </section>
         </article>
     </main>

@@ -24,18 +24,7 @@
             $this->db_conn->close_conn();
         }
 
-        // Methods
-        function is_login_auth($employee_DTO){
-            $this->employee_DTO = $employee_DTO; 
-            $this->read_employee_record("email", $this->employee_DTO->get_email());
-            if($this->employee_DTO->get_email() == $this->employee_DAO->get_email() && 
-                $this->employee_DTO->get_password() == $this->employee_DAO->get_password()){
-                    return true;
-                }else{
-                    return false;
-                }
-        }
-
+        // METHOD
         function create_employee_record(){
 
         }

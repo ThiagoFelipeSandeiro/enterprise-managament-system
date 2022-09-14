@@ -14,7 +14,6 @@ USE go_to_gro_ems;
 CREATE TABLE Employee(
   employeeID SERIAL PRIMARY KEY,
   password VARCHAR(32) NOT NULL,
-  loginStatus BOOLEAN,
   employeeName VARCHAR(32) NOT NULL,
   address VARCHAR(64),
   email VARCHAR(32) NOT NULL);
@@ -48,8 +47,8 @@ CREATE TABLE Purchace (
   status ENUM("pending", "ready", "complete"),
   FOREIGN KEY (memberID) REFERENCES Member(memberID) );
 
-INSERT INTO Employee(password, loginStatus, employeeName, address, email) VALUES ('P@ssw0rd', 'FALSE', 'Bobby', 'Melbourne 3000', 'bobby@swin.edu.au');
-INSERT INTO Employee(password, loginStatus, employeeName, address, email) VALUES ('P@ssw0rd', 'FALSE', 'Poppy', 'Melbourne 3000', 'poppy@swin.edu.au');
+INSERT INTO Employee(password, employeeName, address, email) VALUES ('P@ssw0rd', 'Bobby', 'Melbourne 3000', 'bobby@swin.edu.au');
+INSERT INTO Employee(password, employeeName, address, email) VALUES ('P@ssw0rd', 'Poppy', 'Melbourne 3000', 'poppy@swin.edu.au');
 ```
 8. Clone repo into htdocs folder in xampp dir.
 

@@ -5,7 +5,6 @@
         // Private Fields
         private $employeeID;
         private $password;
-        private $loginStatus;
         private $employeeName;
         private $address;
         private $email;
@@ -14,7 +13,6 @@
         function __construct() {
             $this->employeeID = "";
             $this->password = "";
-            $this->loginStatus = FALSE;
             $this->employeeName = "";
             $this->address = "";
             $this->email = "";
@@ -25,7 +23,6 @@
             $instance = new self();
             $instance->set_employeeID($row['employeeID']);
             $instance->set_password($row['password']);
-            $instance->set_loginStatus($row['loginStatus']);
             $instance->set_employeeName($row['employeeName']);
             $instance->set_address($row['address']);
             $instance->set_email($row['email']);
@@ -37,7 +34,6 @@
             $instance = new self();
             $instance->set_employeeID($post['employeeID']);
             $instance->set_password($post['password']);
-            $instance->set_loginStatus($post['loginStatus']);
             $instance->set_employeeName($post['employeeName']);
             $instance->set_address($post['address']);
             $instance->set_email($post['email']);
@@ -50,9 +46,6 @@
         }
         function get_password(){
             return $this->password;
-        }
-        function get_loginStatus(){
-            return $this->loginStatus;
         }
         function get_employeeName(){
             return $this->employeeName;
@@ -72,9 +65,6 @@
         function set_password($password) {
             if($password != NULL)
                 $this->password = $this->sanitise_input($password);
-        }
-        function set_loginStatus($loginStatus) {
-            $this->loginStatus = $loginStatus;
         }
         function set_employeeName($employeeName) {
             if($employeeName != NULL)

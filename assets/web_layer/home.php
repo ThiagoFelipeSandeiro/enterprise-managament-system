@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if (!$_SESSION["Login"]) {
+    header ("location: ../../index.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -26,7 +32,13 @@
 
             <!-- Section 1 -->
             <section id="manage">
-                <h1 id="h1">Home Page</h1>
+            <div style="display: flex;flex-direction: row;"><h1 id="h1" style="width: 95%;">Home Page</h1>
+              <div style="align-items: center;display: grid;">
+                <form id='logout' class='form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
+                    <?php require './logout.inc';?>
+                <button form='logout' type="submit" action="/assets/web_layer/home.php" style="">Logout</button>
+              </div>
+            </div>
                 <hr /><br />
 
                 <!-- Form -->

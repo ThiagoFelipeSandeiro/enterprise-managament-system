@@ -32,6 +32,18 @@
             return $instance;
         }
 
+        // Custom Constructor
+        public static function with_post($post) {
+            $instance = new self();
+            $instance->set_employeeID($post['employeeID']);
+            $instance->set_password($post['password']);
+            $instance->set_loginStatus($post['loginStatus']);
+            $instance->set_employeeName($post['employeeName']);
+            $instance->set_address($post['address']);
+            $instance->set_email($post['email']);
+            return $instance;
+        }
+
         // Getters
         function get_employeeID(){
             return $this->employeeID;

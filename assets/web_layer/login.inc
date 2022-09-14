@@ -10,7 +10,7 @@
         $interface = new EmployeeFacadeRemote();
         if($interface->is_login_valid($_POST)){
             $_SESSION["Login"] = "true";
-            header ("location: home.php");
+            header ("location: assets/web_layer/home.php");
         }
     }
 ?>

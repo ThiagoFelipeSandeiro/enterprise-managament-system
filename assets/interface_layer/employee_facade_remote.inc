@@ -48,11 +48,11 @@
             if($this->employee_DTO->get_email() == $this->employee_facade->get_employee_DAO()->get_email() && 
                 $this->employee_DTO->get_password() == $this->employee_facade->get_employee_DAO()->get_password()){
                     return true;
-                }else{
-                    //error
-                    $this->error_message .= "<li>Access not granted.</li>";
-                    return false;
-                }
+            }else{
+                //error
+                $this->error_message .= "<li>Access not granted.</li>";
+                return false;
+            }
         }
 
         function is_valid(){

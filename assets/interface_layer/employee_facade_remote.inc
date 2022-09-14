@@ -44,13 +44,15 @@
         }
 
         function is_login_auth($employee_DTO){
-            if($this->employee_facade->is_login_auth($employee_DTO)){
-                return true;
-            }else{
-                //error
-                $this->error_message .= "<li>Access not granted.</li>";
-                return false;
-            }
+            $this->read_employee_record("email", $this->employee_DTO->get_email());
+            if($this->employee_DTO->get_email() == $this->employee_facade->get_employee_DAO()->get_email() && 
+                $this->employee_DTO->get_password() == $this->employee_facade->get_employee_DAO()->get_password()){
+                    return true;
+                }else{
+                    //error
+                    $this->error_message .= "<li>Access not granted.</li>";
+                    return false;
+                }
         }
 
         function is_valid(){
@@ -113,7 +115,7 @@
         }
 
         function read_employee_record($attribute, $search_string){
-
+            $this->employee_facade->read_employee_record($attribute, $search_string);
         }
 
         function update_employee_record(){

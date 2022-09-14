@@ -52,7 +52,7 @@
         }
 
         function get_employee_DAO(){
-            return $this->employee_DTO;
+            return $this->employee_DAO;
         }
 
         // Setters

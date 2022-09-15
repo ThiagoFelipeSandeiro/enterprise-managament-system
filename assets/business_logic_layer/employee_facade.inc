@@ -1,21 +1,19 @@
  <?php
 
     // Include
-    require_once './assets/config/connect_db.inc';
-    require_once './assets/entities/data_transfer_layer/employee_DTO.inc';
-    require_once './assets/entities/data_access_layer/employee_DAO.inc';
+    require_once dirname(__DIR__).'/config/connect_db.inc';
+    require_once dirname(__DIR__).'/entities/data_transfer_layer/employee_DTO.inc';
+    require_once dirname(__DIR__).'/entities/data_access_layer/employee_DAO.inc';
 
     class EmployeeFacade {
 
         // Private Fields
         private $db_conn;
-        private $employee_DTO;
         private $employee_DAO;
 
         // Default Constructor
         function __construct(){
             $this->db_conn = new ConnectDB();
-            $this->employee_DTO = new EmployeeDTO();
             $this->employee_DAO = new EmployeeDAO();
         }
 
@@ -43,6 +41,20 @@
         }
 
         function delete_employee_record(){
+            
+        }
+
+        function DAO2DTO($DAO){
+            $instance = new EmployeeDTO();
+            $instance->set_employeeID($DAO->get_employeeID());
+            $instance->set_password($DAO->get_employeeID());
+            $instance->set_employeeName($DAO->get_employeeID());
+            $instance->set_address($DAO->get_employeeID());
+            $instance->set_email($DAO->get_employeeID());
+            return $instance;
+        }
+
+        function DTO2DAO($DTO){
             
         }
 

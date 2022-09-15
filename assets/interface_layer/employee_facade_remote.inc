@@ -1,8 +1,8 @@
  <?php
 
     // Include
-    require_once './assets/entities/data_transfer_layer/employee_DTO.inc';
-    require_once './assets/business_logic_layer/employee_facade.inc';
+    require_once dirname(__DIR__).'/entities/data_transfer_layer/employee_DTO.inc';
+    require_once dirname(__DIR__).'/business_logic_layer/employee_facade.inc';
 
     class EmployeeFacadeRemote {
 
@@ -105,7 +105,7 @@
                     ".$this->error_message."
                     </ul>
                     <br/>
-                    <a href='index.php' style='position:relative;vertical-align:super;'><button type='button' id='errBtn' class='btn'>Okay</button></a>
+                    <a href='' style='position:relative;vertical-align:super;'><button type='button' id='errBtn' class='btn'>Okay</button></a>
                     </section>
                 </div>";
         }
@@ -129,6 +129,9 @@
         // Getters
         function get_employee_DTO(){
             return $this->employee_DTO;
+        }
+        function get_employee_facade(){
+            return $this->employee_facade;
         }
 
         // Setters

@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if (!$_SESSION["Login"]) {
+  if ($_SESSION["Login"] == 'false') {
     header ("location: ../../index.php");
   }
 ?>
@@ -18,11 +18,6 @@
 </head>
 
 <body>
-    <!-- Header -->
-
-    <!-- Nav Bar -->
-
-
     <!-- Screen overlay (used for displaying messages)-->
     <div id='scrnOverlay'></div>
 
@@ -32,50 +27,70 @@
 
             <!-- Section 1 -->
             <section id="manage">
-            <div style="display: flex;flex-direction: row;"><h1 id="h1" style="width: 95%;">Home Page</h1>
-              <div style="align-items: center;display: grid;">
-                <form id='logout' class='form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
-                    <?php require './logout.inc';?>
-                <button form='logout' type="submit" action="/assets/web_layer/home.php" style="">Logout</button>
+              <div style="display: flex;flex-direction: row;"><h1 id="h1" style="width: 95%;">Home Page</h1>
+                <div style="align-items: center;display: grid;">
+                    <button><a style='text-decoration:none;' href='logout.php'>Logout</a></button>
+                </div>
               </div>
-            </div>
-                <hr /><br />
+              <hr /><br />
 
                 <!-- Form -->
                 <div id="manage-employee">
-                  <form id='manage-employee-form' class='form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
-                    <?php require './login.inc';?>
+
+                  <form id='manage-employee-form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
+                    <?php include 'manage_employee.inc';?>
+
                     <section>
 
                       <!-- Employee Details -->
                       <fieldset>
                         <legend>Employee Details</legend>
-                        <div id='employee-details'></div>
+                        <div id='employee-details'>
+                          <!--<label for='employeeID'>ID</label> 
+                            <input type='text' name='employeeID' placeholder='Employee ID...' /><br /><br />
+
+                          <label for='employeeName'>Name</label> 
+                            <input type='text' name='employeeName' placeholder='Employee Name...' /><br /><br />
+
+                          <label for='employeeAddress'>Address</label> 
+                            <input type='text' name='employeeAddress' placeholder='Employee Address...' /><br /><br />
+
+                          <label for='employeeEmail'>Email</label> 
+                            <input type='text' name='employeeEmail' placeholder='Employee Email...' /><br /><br />
+
+                          <label for='employeePassword'>Password</label> 
+                            <input type='password' name='employeePassword' placeholder='Employee Password...' /><br /><br />-->
+                        </div>
                         <label for='employeeCRUD'></label>
                           <input type='radio' name='employeeCRUD' value='create-employee' />Add
                           <input type='radio' name='employeeCRUD' value='read-employee' />Display
                           <input type='radio' name='employeeCRUD' value='update-employee' />Update
                           <input type='radio' name='employeeCRUD' value='delete-employee' />Delete<br /><br />
 
-                          <button form='manage-employee-form' type='submit'>Submit</button>
+                          <div id='employee-details-btn'></div>
+                          <!--input form='manage-employee-form' type='submit'/-->
+
                       </fieldset>
                       <br />
+
                     </section>
+
                   </form>
+
                 </div>
 
                 <hr /><br />
 
                 <!-- Form -->
                 <div id="manage-member">
-                  <form id='manage-member-form' class='form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
-                    <?php require './login.inc';?>
+                  <form id='manage-member-form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
+
                     <section>
 
                       <!-- Member Details -->
                       <fieldset id='member-details'>
                         <legend>Member Details</legend>
-
+                        <div>
                         <label for='memberName'>Name</label>
                           <input type='text' name='memberName' placeholder='Member Name...' /><br /><br />
 
@@ -84,7 +99,7 @@
 
                         <label for='memberEmail'>Email</label>
                           <input type='text' name='memberEmail' placeholder='Member Email...' /><br /><br />
-
+                        </div>
                         <label for='memberCRUD'></label>
                           <input type='radio' name='memberCRUD' value='create' />Add
                           <input type='radio' name='memberCRUD' value='read' />Display
@@ -102,8 +117,8 @@
 
                 <!-- Form -->
                 <div id="manage-product">
-                  <form id='manage-product-form' class='form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
-                    <?php require './login.inc';?>
+                  <form id='manage-product-form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
+                    
                     <section>
 
                       <!-- Product Details -->

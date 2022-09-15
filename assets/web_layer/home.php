@@ -50,24 +50,12 @@
                       <!-- Employee Details -->
                       <fieldset>
                         <legend>Employee Details</legend>
-
-                        <label for='employeeName'>Name</label>
-                          <input type='text' name='employeeName' placeholder='Employee Name...' /><br /><br />
-
-                        <label for='employeeAddress'>Address</label>
-                          <input type='text' name='employeeAddress' placeholder='Employee Address...' /><br /><br />
-
-                        <label for='employeeEmail'>Email</label>
-                          <input type='text' name='employeeEmail' placeholder='Employee Email...' /><br /><br />
-
-                        <label for='employeePassword'>Password</label>
-                          <input type='password' name='employeePassword' placeholder='Employee Password...' /><br /><br />
-
+                        <div id='employee-details'></div>
                         <label for='employeeCRUD'></label>
-                          <input type='radio' name='employeeCRUD' value='create' />Add
-                          <input type='radio' name='employeeCRUD' value='read' />Display
-                          <input type='radio' name='employeeCRUD' value='update' />Update
-                          <input type='radio' name='employeeCRUD' value='delete' />Delete<br /><br />
+                          <input type='radio' name='employeeCRUD' value='create-employee' />Add
+                          <input type='radio' name='employeeCRUD' value='read-employee' />Display
+                          <input type='radio' name='employeeCRUD' value='update-employee' />Update
+                          <input type='radio' name='employeeCRUD' value='delete-employee' />Delete<br /><br />
 
                           <button form='manage-employee-form' type='submit'>Submit</button>
                       </fieldset>
@@ -85,7 +73,7 @@
                     <section>
 
                       <!-- Member Details -->
-                      <fieldset>
+                      <fieldset id='member-details'>
                         <legend>Member Details</legend>
 
                         <label for='memberName'>Name</label>
@@ -119,7 +107,7 @@
                     <section>
 
                       <!-- Product Details -->
-                      <fieldset>
+                      <fieldset id='product-details'>
                         <legend>Product Details</legend>
 
                         <label for='productName'>Name</label>
@@ -154,8 +142,8 @@
         </article>
     </main>
 
-    <!-- Footer -->
-
+    <!-- JS -->
+    <script src='../js/main.js'></script>
 
   </body>
 

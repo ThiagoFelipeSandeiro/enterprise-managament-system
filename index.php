@@ -45,8 +45,8 @@
                         <label for='password'>Password</label>
                           <input type='password' name='password' placeholder='Password...' /><br /><br />
 
+                          <button form='LoginForm' id='Create-admin' class='btn' type='submit'>Login</button>
                       </fieldset>
-                      <button form='LoginForm' id='Create-admin' class='btn' type='submit'>Login</button>
                       <br />
                       <br />
                     </section>

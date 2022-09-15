@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  //$_SESSION["Login"] = 'false'
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -12,11 +16,6 @@
 </head>
 
 <body>
-    <!-- Header -->
-
-    <!-- Nav Bar -->
-
-
     <!-- Screen overlay (used for displaying messages)-->
     <div id='scrnOverlay'></div>
 
@@ -32,9 +31,7 @@
                 <!-- Form -->
                 <div id="manage-container">
                   <form id='LoginForm' class='form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
-                    <?php require './assets/web_layer/login.inc';?>
-                    <section>
-
+                    <?php require_once './assets/web_layer/login.inc';?>
                       <!-- Admin Details -->
                       <fieldset id='admin-details'>
                         <legend>Employee Login Details</legend>
@@ -45,19 +42,18 @@
                         <label for='password'>Password</label>
                           <input type='password' name='password' placeholder='Password...' /><br /><br />
 
-                          <button form='LoginForm' id='Create-admin' class='btn' type='submit'>Login</button>
+                          <button form='LoginForm' type='submit'>Login</button>
                       </fieldset>
                       <br />
                       <br />
-                    </section>
                   </form>
                 </div>
+
             </section>
         </article>
-    </main>
-
-    <!-- Footer -->
-
+      </main>
+      <!-- JS -->
+      <script src='../js/main.js'></script>
 
   </body>
 

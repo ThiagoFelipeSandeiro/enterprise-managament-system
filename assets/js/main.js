@@ -14,13 +14,12 @@ function change() {
     if(ele[i].type=="radio") {
         if(ele[i].checked){
           val = ele[i].value;
-          console.log(val);
         }
       }
   }
   
   switch(val){
-    
+
     case 'create-employee':
         document.getElementById("employee-details").innerHTML = 
             "<label for='employeeName'>Name</label> "+
@@ -34,12 +33,14 @@ function change() {
             
             "<label for='employeePassword'>Password</label> "+
             "   <input type='password' name='employeePassword' placeholder='Employee Password...' /><br /><br />";
+            document.getElementById("employee-details-btn").innerHTML = "<input form='manage-employee-form' type='submit'/>"
         break;
 
     case 'read-employee':
         document.getElementById("employee-details").innerHTML = 
                 "<label for='employeeID'>ID</label> "+
                     "<input type='text' name='employeeID' placeholder='Employee ID...' /><br /><br />";
+        document.getElementById("employee-details-btn").innerHTML = "<input form='manage-employee-form' type='submit'/>"
         break;
 
     case 'update-employee':
@@ -55,12 +56,14 @@ function change() {
         
         "<label for='employeePassword'>Password</label> "+
         "   <input type='password' name='employeePassword' placeholder='Employee Password...' /><br /><br />";
+        document.getElementById("employee-details-btn").innerHTML = "<input form='manage-employee-form' type='submit'/>"
         break;
 
     case 'delete-employee':
         document.getElementById("employee-details").innerHTML = 
                 "<label for='employeeID'>ID</label> "+
                     "<input type='text' name='employeeID' placeholder='Employee ID...' /><br /><br />";
+        document.getElementById("employee-details-btn").innerHTML = "<input form='manage-employee-form' type='submit'/>"
         break;
   }
 

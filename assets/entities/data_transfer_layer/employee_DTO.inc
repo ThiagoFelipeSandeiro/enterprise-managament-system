@@ -59,25 +59,30 @@
 
         // Setters
         function set_employeeID($employeeID) {
-            if($employeeID != NULL)
+            if($employeeID != NULL){
                 $this->employeeID = $this->sanitise_input($employeeID);
-        }
+	    }
+	}    
         function set_password($password) {
-            if($password != NULL)
+            if($password != NULL){
                 $this->password = $this->sanitise_input($password);
-        }
+	    }
+	}
         function set_employeeName($employeeName) {
-            if($employeeName != NULL)
+            if($employeeName != NULL){
                 $this->employeeName = $this->sanitise_input($employeeName);
-        }
+	    }
+	}
         function set_address($address) {
-            if($address != NULL)
+            if($address != NULL){
                 $this->address = $this->sanitise_input($address);
-        }
+	    }
+	}
         function set_email($email) {
-            if($email != NULL)
+            if($email != NULL){
                 $this->email = $this->sanitise_input($email);
-        }
+	    }
+	}    
 
         // Sanitise data function.
         function sanitise_input($data) {

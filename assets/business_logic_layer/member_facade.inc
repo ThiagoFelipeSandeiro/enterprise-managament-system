@@ -32,8 +32,9 @@
             //Return the result from the query.
             $result = mysqli_query($this->db_conn->get_conn(), $command);
             $row = mysqli_fetch_assoc($result);
-            if($row != NULL)
+            if($row != NULL){
                 $this->member_DAO = $this->member_DAO->with_row($row);
+            }
         }
 
         function update_member_record(){
@@ -42,14 +43,14 @@
 
         function delete_member_record(){
             
-	}
+	    }
 
         function DAO2DTO($DAO){
             $instance = new MemberDTO();
-	    $instance->set_memberID($DAO->get_memberID());
-	    $instance->set_memberName($DAO->get_memberName());
-	    $instance->set_memberAddress($DAO->get_memberAddress());
-	    $instance->set_memberEmail($DAO->get_memberEmail());
+            $instance->set_memberID($DAO->get_memberID());
+            $instance->set_memberName($DAO->get_memberName());
+            $instance->set_memberAddress($DAO->get_memberAddress());
+            $instance->set_memberEmail($DAO->get_memberEmail());
             return $instance;
         }
 

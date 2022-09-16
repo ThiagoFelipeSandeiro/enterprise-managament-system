@@ -122,8 +122,8 @@
             
         }
 
-        function delete_employee_record(){
-            
+        function delete_employee_record($attribute, $search_string){
+            return $this->employee_facade->delete_employee_record($attribute, $search_string);
         }
 
         // Getters

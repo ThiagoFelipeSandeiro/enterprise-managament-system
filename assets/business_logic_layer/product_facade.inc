@@ -32,8 +32,9 @@
             //Return the result from the query.
             $result = mysqli_query($this->db_conn->get_conn(), $command);
             $row = mysqli_fetch_assoc($result);
-            if($row != NULL)
+            if($row != NULL){
                 $this->product_DAO = $this->product_DAO->with_row($row);
+            }
         }
 
         function update_product_record(){
@@ -46,12 +47,12 @@
 
         function DAO2DTO($DAO){
             $instance = new ProductDTO();
-	    $instance->set_productID($DAO->get_productID());
-	    $instance->set_productName($DAO->get_productName());
-	    $instance->set_productDescription($DAO->get_productDescription());
-	    $instance->set_unitCost($DAO->get_unitCost());
-	    $instance->set_quantityOnHand($DAO->get_quantityOnHand());
-	    $instance->set_supplier($DAO->get_supplier());
+            $instance->set_productID($DAO->get_productID());
+            $instance->set_productName($DAO->get_productName());
+            $instance->set_productDescription($DAO->get_productDescription());
+            $instance->set_unitCost($DAO->get_unitCost());
+            $instance->set_quantityOnHand($DAO->get_quantityOnHand());
+            $instance->set_supplier($DAO->get_supplier());
             return $instance;
         }
 

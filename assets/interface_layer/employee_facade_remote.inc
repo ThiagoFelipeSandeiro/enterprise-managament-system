@@ -138,7 +138,9 @@
         function set_employee_DTO($employee_DTO) {
             $this->employee_DTO = $employee_DTO;
         }
-
+        function set_error_message($error) {
+            $this->error_message .= $error;
+        }
 
 
     }

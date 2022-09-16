@@ -23,12 +23,17 @@
     
                 case 'read-employee':
                     $interface->read_employee_record('employeeID', $_POST['employeeID']);
-                    $_SESSION['employee_ID'] = $interface->get_employee_facade()->get_employee_DAO()->get_employeeID();
-                    $_SESSION['employee_password'] = $interface->get_employee_facade()->get_employee_DAO()->get_password();
-                    $_SESSION['employee_name'] = $interface->get_employee_facade()->get_employee_DAO()->get_employeeName();
-                    $_SESSION['employee_address'] = $interface->get_employee_facade()->get_employee_DAO()->get_address();
-                    $_SESSION['employee_email'] = $interface->get_employee_facade()->get_employee_DAO()->get_email();
-                    header ('location: display_employee.php');
+                    if($interface->get_employee_facade()->get_employee_DAO()->get_employeeID() == NULL){
+                        $interface->set_error_message("No record for with eployee ID of ".$_POST['employeeID']." found.");
+                        $interface->print_error();
+                    }else{
+                        $_SESSION['employee_ID'] = $interface->get_employee_facade()->get_employee_DAO()->get_employeeID();
+                        $_SESSION['employee_password'] = $interface->get_employee_facade()->get_employee_DAO()->get_password();
+                        $_SESSION['employee_name'] = $interface->get_employee_facade()->get_employee_DAO()->get_employeeName();
+                        $_SESSION['employee_address'] = $interface->get_employee_facade()->get_employee_DAO()->get_address();
+                        $_SESSION['employee_email'] = $interface->get_employee_facade()->get_employee_DAO()->get_email();
+                        header ('location: display_employee.php');
+                    }
                     break;  
     
                 case 'update-employee':

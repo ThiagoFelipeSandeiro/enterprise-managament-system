@@ -33,29 +33,34 @@
                 </div>
               </div>
               <hr /><br />
-              <?php 
-                //Display the retrived records.
-                echo "<div id=\"admin-container\" style=\"margin: 5% 0% 0% 8%;\">\n";
-                echo "<table border='1'>\n";
-                echo "<tr>\n"
-                      ."<th scope='col'>Employee ID</th>\n"
-                      ."<th scope='col'>Employee Password</th>\n"
-                      ."<th scope='col'>Employee Name</th>\n"
-                      ."<th scope='col'>Employee Address</th>\n"
-                      ."<th scope='col'>Employee Email</th>\n"
-                      ."</tr>\n";
-                //Retrive current records pointed by the result pointer.
-                  echo "<tr>\n";
-                  echo "<td>", $_SESSION['employee_ID'], "</td>\n";
-                  echo "<td>", $_SESSION['employee_password'], "</td>\n";
-                  echo "<td>", $_SESSION['employee_name'], "</td>\n";
-                  echo "<td>", $_SESSION['employee_address'], "</td>\n";
-                  echo "<td>", $_SESSION['employee_email'], "</td>\n";
-                  echo "</tr>\n";
+              <fieldset>
+                <legend>Employee Details</legend>
+                <?php 
+                  //Display the retrived records.
+                  echo "<div>\n";
+                  echo "<table border='1'>\n";
+                  echo "<tr>\n"
+                        ."<th scope='col'>Employee ID</th>\n"
+                        ."<th scope='col'>Employee Password</th>\n"
+                        ."<th scope='col'>Employee Name</th>\n"
+                        ."<th scope='col'>Employee Address</th>\n"
+                        ."<th scope='col'>Employee Email</th>\n"
+                        ."</tr>\n";
+                  //Retrive current records pointed by the result pointer.
+                    echo "<tr>\n";
+                    echo "<td>", $_SESSION['employee_ID'], "</td>\n";
+                    echo "<td>", $_SESSION['employee_password'], "</td>\n";
+                    echo "<td>", $_SESSION['employee_name'], "</td>\n";
+                    echo "<td>", $_SESSION['employee_address'], "</td>\n";
+                    echo "<td>", $_SESSION['employee_email'], "</td>\n";
+                    echo "</tr>\n";
 
-                echo "</table>\n";
-                echo "</div>\n";
+                  echo "</table>\n";
+                  echo "</div>\n";
                 ?>
+              </fieldset>
+              <br />
+              <button onclick='history.back()'>Okay</button>
             </section>
         </article>
     </main>

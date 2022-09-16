@@ -32,8 +32,9 @@
             //Return the result from the query.
             $result = mysqli_query($this->db_conn->get_conn(), $command);
             $row = mysqli_fetch_assoc($result);
-            if($row != NULL)
+            if($row != NULL){
                 $this->employee_DAO = $this->employee_DAO->with_row($row);
+            }
         }
 
         function update_employee_record(){

@@ -24,7 +24,7 @@
                 case 'read-employee':
                     $interface->read_employee_record('employeeID', $_POST['employeeID']);
                     if($interface->get_employee_facade()->get_employee_DAO()->get_employeeID() == NULL){
-                        $interface->set_error_message("No record for with eployee ID of ".$_POST['employeeID']." found.");
+                        $interface->set_error_message("No record with employee ID of ".$_POST['employeeID']." was found.");
                         $interface->print_error();
                     }else{
                         $_SESSION['employee_ID'] = $interface->get_employee_facade()->get_employee_DAO()->get_employeeID();
@@ -41,7 +41,13 @@
                     break;
     
                 case 'delete-employee':
-    
+                    if($interface->delete_employee_record('employeeID', $_POST['employeeID'])){
+                        $interface->set_error_message("Record with employee ID of ".$_POST['employeeID']." was deleted.");
+                        $interface->print_error();
+                    }else{
+                        $interface->set_error_message("No record with employee ID of ".$_POST['employeeID']." was found.");
+                        $interface->print_error();
+                    }
                     break;
             }
             //header ("location: assets/web_layer/read-employee.php");

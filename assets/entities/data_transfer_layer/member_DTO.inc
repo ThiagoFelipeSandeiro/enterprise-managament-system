@@ -2,7 +2,7 @@
 
     class MemberDTO {
 
-	// Private Fields
+	    // Private Fields
         private $memberID;
         private $memberName;
         private $memberAddress;
@@ -21,8 +21,8 @@
             $instance = new self();
             $instance->set_memberID($row['memberID']);
             $instance->set_memberName($row['memberName']);
-	    $instance->set_memberAddress($row['memberAddress']);
-	    $instance->set_memberEmail($row['memberEmail']);
+	        $instance->set_memberAddress($row['memberAddress']);
+	        $instance->set_memberEmail($row['memberEmail']);
             return $instance;
         }
 
@@ -34,7 +34,7 @@
             $instance->set_memberAddress($post['memberAddress']);
             $instance->set_memberEmail($post['memberEmail']);
             return $instance;
-	}
+	    }
 
         // Getters
         function get_memberID(){
@@ -48,36 +48,35 @@
         }
         function get_memberEmail(){
             return $this->memberEmail;
-
+        }
         // Setters
         function set_memberID($memberID) {
             if($memberID != NULL){
-	    	$this->memberID = $this->sanitise_input($memberID);
+	    	    $this->memberID = $this->sanitise_input($memberID);
+	        }
 	    }
-	}
         function set_memberName($memberName) {
             if($memberName != NULL){
-	    	$this->memberName = $this->sanitise_input($memberName);
-	    }
-	}
+                $this->memberName = $this->sanitise_input($memberName);
+            }
+        }
         function set_memberAddress($memberAddress) {
             if($memberAddress != NULL){
-	    	$this->memberAddress = $this->sanitise_input($memberAddress);
-	    }
-	}
+                $this->memberAddress = $this->sanitise_input($memberAddress);
+            }
+        }
         function set_memberEmail($memberEmail) {
             if($memberEmail != NULL){
-	    	$this->memberEmail = $this->sanitise_input($memberEmail);
-	    }
-	}
+                $this->memberEmail = $this->sanitise_input($memberEmail);
+            }
+        }
 
-	//Sanitise function
-	function sanitise_input($data) {
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-		return $data;
-	}
-    }
-    
-?> 
+        //Sanitise function
+        function sanitise_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+    }  
+?>

@@ -1,6 +1,6 @@
 <?php
   session_start();
-  //$_SESSION["Login"] = 'false'
+  $_SESSION["Login"] = 'false'
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -37,10 +37,10 @@
                         <legend>Employee Login Details</legend>
 
                         <label for='email'>Email</label>
-                          <input type='text' name='email' placeholder='Email...' /><br /><br />
+                          <input type='text' name='employeeEmail' placeholder='Email...' /><br /><br />
 
                         <label for='password'>Password</label>
-                          <input type='password' name='password' placeholder='Password...' /><br /><br />
+                          <input type='password' name='employeePassword' placeholder='Password...' /><br /><br />
 
                           <button form='LoginForm' type='submit'>Login</button>
                       </fieldset>

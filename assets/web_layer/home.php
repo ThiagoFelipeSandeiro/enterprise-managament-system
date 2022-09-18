@@ -32,17 +32,17 @@
                 <!-- Employee Form -->
                 <div id="manage-employee">
                   <form id='manage-employee-form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
-                    <?php include 'manage_employee.inc';?>
+                    <?php include 'manage_records.inc';?>
                     <section>
                       <!-- Employee Details -->
                       <fieldset>
                         <legend>Employee Details</legend>
                         <div id='employee-details'></div>
-                        <label for='employeeCRUD'></label>
-                          <input type='radio' name='employeeCRUD' value='create-employee' />Add
-                          <input type='radio' name='employeeCRUD' value='read-employee' />Display
-                          <input type='radio' name='employeeCRUD' value='update-employee' />Update
-                          <input type='radio' name='employeeCRUD' value='delete-employee' />Delete
+                        <label for='CRUD'></label>
+                          <input type='radio' name='CRUD' value='create-employee' />Add
+                          <input type='radio' name='CRUD' value='read-employee' />Display
+                          <input type='radio' name='CRUD' value='update-employee' />Update
+                          <input type='radio' name='CRUD' value='delete-employee' />Delete
                           <br/><br/>
                           <div id='employee-details-btn'></div>
                       </fieldset>
@@ -59,11 +59,11 @@
                       <fieldset>
                         <legend>Member Details</legend>
                         <div id='member-details'></div>
-                        <label for='memberCRUD'></label>
-                          <input type='radio' name='memberCRUD' value='create-member' />Add
-                          <input type='radio' name='memberCRUD' value='read-member' />Display
-                          <input type='radio' name='memberCRUD' value='update-member' />Update
-                          <input type='radio' name='memberCRUD' value='delete-member' />Delete
+                        <label for='CRUD'></label>
+                          <input type='radio' name='CRUD' value='create-member' />Add
+                          <input type='radio' name='CRUD' value='read-member' />Display
+                          <input type='radio' name='CRUD' value='update-member' />Update
+                          <input type='radio' name='CRUD' value='delete-member' />Delete
                           <br/><br/>
                           <div id='member-details-btn'></div>
                       </fieldset>
@@ -80,11 +80,11 @@
                       <fieldset>
                         <legend>Product Details</legend>
                         <div id='product-details'></div>
-                        <label for='productCRUD'></label>
-                          <input type='radio' name='productCRUD' value='create-product' />Add
-                          <input type='radio' name='productCRUD' value='read-product' />Display
-                          <input type='radio' name='productCRUD' value='update-product' />Update
-                          <input type='radio' name='productCRUD' value='delete-product' />Delete
+                        <label for='CRUD'></label>
+                          <input type='radio' name='CRUD' value='create-product' />Add
+                          <input type='radio' name='CRUD' value='read-product' />Display
+                          <input type='radio' name='CRUD' value='update-product' />Update
+                          <input type='radio' name='CRUD' value='delete-product' />Delete
                           <br/><br/>
                         <div id='product-details-btn'></div>
                       </fieldset>

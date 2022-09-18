@@ -21,10 +21,10 @@ CREATE TABLE Employee(
 CREATE TABLE Product(
   productID SERIAL PRIMARY KEY,
   productName VARCHAR(64) NOT NULL,
-  description VARCHAR(255),
-  unitCost DOUBLE(5,2) NOT NULL,
-  qualityOnHand INTEGER(64) NOT NULL,
-  supplier VARCHAR(64) NOT NULL);
+  productDescription VARCHAR(255),
+  productUnitCost DOUBLE(5,2) NOT NULL,
+  productQuantityOnHand INTEGER(64) NOT NULL,
+  productSupplier VARCHAR(64) NOT NULL);
 
 CREATE TABLE `Purchace Details`(
   productID SERIAL PRIMARY KEY,

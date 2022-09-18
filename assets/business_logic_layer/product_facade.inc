@@ -1,7 +1,7 @@
  <?php
 
     // Include
-    require_once dirname(__DIR__).'/config/connect_db.inc';
+    require_once dirname(__DIR__).'\config\settings.inc';
     require_once dirname(__DIR__).'/entities/data_transfer_layer/product_DTO.inc';
     require_once dirname(__DIR__).'/entities/data_access_layer/product_DAO.inc';
 
@@ -19,12 +19,24 @@
 
         // Default Destructor
         function __destruct() {
-            $this->db_conn->close_conn();
+            //$this->db_conn->close_conn();
         }
 
         // METHOD
-        function create_product_record(){
-
+        function create_product_record($DTO){
+            $this->set_product_DAO($this->DTO2DAO($DTO));
+            $command = "INSERT INTO Product (productName, productDescription, productUnitCost, productQuantityOnHand, productSupplier) VALUES 
+            ('".$this->product_DAO->get_productName()."',
+            '".$this->product_DAO->get_productDescription()."',
+            ".$this->product_DAO->get_productUnitCost().",
+            ".$this->product_DAO->get_productQuantityOnHand().",
+            '".$this->product_DAO->get_productSupplier()."');";
+            //Return the result from the query.
+            if(mysqli_query($this->db_conn->get_conn(), $command)){
+                return true;
+            }else{
+                return false;
+            }
         }
 
         function read_product_record($attribute, $search_string){
@@ -50,14 +62,21 @@
             $instance->set_productID($DAO->get_productID());
             $instance->set_productName($DAO->get_productName());
             $instance->set_productDescription($DAO->get_productDescription());
-            $instance->set_unitCost($DAO->get_unitCost());
-            $instance->set_quantityOnHand($DAO->get_quantityOnHand());
-            $instance->set_supplier($DAO->get_supplier());
+            $instance->set_productUnitCost($DAO->get_productUnitCost());
+            $instance->set_productQuantityOnHand($DAO->get_productQuantityOnHand());
+            $instance->set_productSupplier($DAO->get_productSupplier());
             return $instance;
         }
 
         function DTO2DAO($DTO){
-            
+            $instance = new ProductDAO();
+            $instance->set_productID($DTO->get_productID());
+            $instance->set_productName($DTO->get_productName());
+            $instance->set_productDescription($DTO->get_productDescription());
+            $instance->set_productUnitCost($DTO->get_productUnitCost());
+            $instance->set_productQuantityOnHand($DTO->get_productQuantityOnHand());
+            $instance->set_productSupplier($DTO->get_productSupplier());
+            return $instance;
         }
 
         // Getters

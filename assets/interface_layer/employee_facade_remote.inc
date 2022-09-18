@@ -25,15 +25,15 @@
 
         // METHODS
         function is_login_valid($post){
-            if($this->is_empty($post["email"]) || $this->is_empty($post["password"])){
+            if($this->is_empty($post["employeeEmail"]) || $this->is_empty($post["employeePassword"])){
                 $this->print_error();
                 return false;
             }elseif(!$this->is_email($post) || !$this->is_password($post)){
                 $this->print_error();
                 return false;
             }else{
-                $this->employee_DTO->set_email($post["email"]);
-                $this->employee_DTO->set_password($post["password"]);
+                $this->employee_DTO->set_email($post["employeeEmail"]);
+                $this->employee_DTO->set_password($post["employeePassword"]);
                 if($this->is_login_auth($this->employee_DTO)){
                     return true;
                 }else{
@@ -45,8 +45,8 @@
 
         function is_login_auth($employee_DTO){
             $this->read_employee_record("email", $this->employee_DTO->get_email());
-            if($this->employee_DTO->get_email() == $this->employee_facade->get_employee_DAO()->get_email() && 
-                $this->employee_DTO->get_password() == $this->employee_facade->get_employee_DAO()->get_password()){
+            if($this->employee_DTO->get_email() == $this->employee_facade->get_employee_DAO()->get_email() &&
+                password_verify($this->employee_DTO->get_password(), $this->employee_facade->get_employee_DAO()->get_password())){
                     return true;
             }else{
                 //error
@@ -68,6 +68,17 @@
             if(!empty($post['employeePassword']) && empty($post['employeeEmail'])){
                 return $this->is_password($post);
             }
+        }
+
+        function is_create_valid($post){
+            if($this->is_empty($post['employeeName']) ||
+                $this->is_empty($post['employeePassword']) ||
+                $this->is_empty($post['employeeAddress']) ||
+                $this->is_empty($post['employeeEmail'])){
+                    return false;
+                }else{
+                    return $this->is_password($post) && $this->is_email($post);
+                }
         }
 
         function is_empty($attribute){
@@ -121,8 +132,8 @@
                 </div>";
         }
 
-        function create_employee_record(){
-
+        function create_employee_record($DTO){
+            return $this->employee_facade->create_employee_record($DTO);
         }
 
         function read_employee_record($attribute, $search_string){

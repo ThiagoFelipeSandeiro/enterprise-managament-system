@@ -45,6 +45,9 @@ function change() {
 
     case 'update-employee':
         document.getElementById("employee-details").innerHTML = 
+        "<label for='employeeID'>ID</label> "+
+            "<input type='text' name='employeeID' placeholder='Employee ID...' /><br /><br />"+
+
         "<label for='employeeName'>Name</label> "+
             "<input type='text' name='employeeName' placeholder='Employee Name...' /><br /><br />"+
         

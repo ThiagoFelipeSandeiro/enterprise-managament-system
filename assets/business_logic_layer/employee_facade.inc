@@ -23,8 +23,19 @@
         }
 
         // METHOD
-        function create_employee_record(){
-
+        function create_employee_record($DTO){
+            $this->set_employee_DAO($this->DTO2DAO($DTO));
+            $command = "INSERT INTO Employee (password, employeeName, address, email) VALUES 
+            ('".password_hash($this->employee_DAO->get_password(), PASSWORD_DEFAULT)."',
+            '".$this->employee_DAO->get_employeeName()."',
+            '".$this->employee_DAO->get_address()."',
+            '".$this->employee_DAO->get_email()."');";
+            //Return the result from the query.
+            if(mysqli_query($this->db_conn->get_conn(), $command)){
+                return true;
+            }else{
+                return false;
+            }
         }
 
         function read_employee_record($attribute, $search_string){
@@ -56,9 +67,8 @@
                 if(!empty($DTO->get_email())){
                     $this->employee_DAO->set_email($DTO->get_email());
                 }
-                
                 $command = "UPDATE Employee 
-                    SET password = '".$this->employee_DAO->get_password()."',
+                    SET password = '".password_hash($this->employee_DAO->get_password(), PASSWORD_DEFAULT)."',
                     employeeName = '".$this->employee_DAO->get_employeeName()."',
                     address = '".$this->employee_DAO->get_address()."',
                     email = '".$this->employee_DAO->get_email()."'
@@ -89,15 +99,21 @@
         function DAO2DTO($DAO){
             $instance = new EmployeeDTO();
             $instance->set_employeeID($DAO->get_employeeID());
-            $instance->set_password($DAO->get_employeeID());
-            $instance->set_employeeName($DAO->get_employeeID());
-            $instance->set_address($DAO->get_employeeID());
-            $instance->set_email($DAO->get_employeeID());
+            $instance->set_password($DAO->get_password());
+            $instance->set_employeeName($DAO->get_employeeName());
+            $instance->set_address($DAO->get_address());
+            $instance->set_email($DAO->get_email());
             return $instance;
         }
 
         function DTO2DAO($DTO){
-            
+            $instance = new EmployeeDAO();
+            $instance->set_employeeID($DTO->get_employeeID());
+            $instance->set_password($DTO->get_password());
+            $instance->set_employeeName($DTO->get_employeeName());
+            $instance->set_address($DTO->get_address());
+            $instance->set_email($DTO->get_email());
+            return $instance;
         }
 
         // Getters

@@ -40,8 +40,36 @@
             }
         }
 
-        function update_employee_record(){
-            
+        function update_employee_record($DTO){
+            if(!$this->read_employee_record('employeeID', $DTO->get_employeeID())){
+                return false;
+            }else{
+                if(!empty($DTO->get_password())){
+                    $this->employee_DAO->set_password($DTO->get_password());
+                }
+                if(!empty($DTO->get_employeeName())){
+                    $this->employee_DAO->set_employeeName($DTO->get_employeeName());
+                }
+                if(!empty($DTO->get_address())){
+                    $this->employee_DAO->set_address($DTO->get_address());
+                }
+                if(!empty($DTO->get_email())){
+                    $this->employee_DAO->set_email($DTO->get_email());
+                }
+                
+                $command = "UPDATE Employee 
+                    SET password = '".$this->employee_DAO->get_password()."',
+                    employeeName = '".$this->employee_DAO->get_employeeName()."',
+                    address = '".$this->employee_DAO->get_address()."',
+                    email = '".$this->employee_DAO->get_email()."'
+                    WHERE employeeID = '".$this->employee_DAO->get_employeeID()."';";
+                //Return the result from the query.
+                if(mysqli_query($this->db_conn->get_conn(), $command)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
         }
 
         function delete_employee_record($attribute, $search_string){

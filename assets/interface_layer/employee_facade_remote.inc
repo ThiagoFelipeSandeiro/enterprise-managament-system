@@ -55,8 +55,19 @@
             }
         }
 
-        function is_valid(){
-
+        function is_update_valid($post){
+            if(empty($post['employeePassword']) && empty($post['employeeEmail'])){
+                return true;
+            }
+            if(!empty($post['employeePassword']) && !empty($post['employeeEmail'])){
+                return $this->is_password($post) && $this->is_email($post);
+            }
+            if(empty($post['employeePassword']) && !empty($post['employeeEmail'])){
+                return $this->is_email($post);
+            }
+            if(!empty($post['employeePassword']) && empty($post['employeeEmail'])){
+                return $this->is_password($post);
+            }
         }
 
         function is_empty($attribute){
@@ -71,7 +82,7 @@
 
         function is_password($post){
             //Check Password matches regex.
-            if (!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/", $post['password'])){
+            if (!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/", $post['employeePassword'])){
                 //Add error message.
                 $this->error_message .= "<li>Your password doesn't match the required format.</li>";
                 return false;
@@ -81,7 +92,7 @@
 
         function is_email($post){
             //Check email matches regex.
-            if (!preg_match("/^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/", $post['email'])){
+            if (!preg_match("/^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/", $post['employeeEmail'])){
                 //Add error message.
                 $this->error_message .= "<li>Your email doesn't match the required format.</li>";
                 return false;
@@ -118,8 +129,8 @@
             $this->employee_facade->read_employee_record($attribute, $search_string);
         }
 
-        function update_employee_record(){
-            
+        function update_employee_record($DTO){
+            return $this->employee_facade->update_employee_record($DTO);
         }
 
         function delete_employee_record($attribute, $search_string){

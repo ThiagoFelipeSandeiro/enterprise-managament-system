@@ -19,7 +19,18 @@
         switch($_POST['employeeCRUD']){
 
             case 'create-employee':
-
+                if($interface->is_create_valid($_POST)){
+                    $interface->set_employee_DTO($interface->get_employee_DTO()->with_post($_POST));
+                    if($interface->create_employee_record($interface->get_employee_DTO())){
+                        $interface->set_error_message("Record was succeddfully created.");
+                        $interface->print_error();
+                    }else{
+                        $interface->set_error_message("Record was not created. Please try again.");
+                        $interface->print_error();
+                    }
+                }else{
+                    $interface->print_error();
+                }
                 break;   
 
             case 'read-employee':

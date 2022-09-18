@@ -33,10 +33,10 @@
         public static function with_post($post) {
             $instance = new self();
             $instance->set_employeeID($post['employeeID']);
-            $instance->set_password($post['password']);
+            $instance->set_password($post['employeePassword']);
             $instance->set_employeeName($post['employeeName']);
-            $instance->set_address($post['address']);
-            $instance->set_email($post['email']);
+            $instance->set_address($post['employeeAddress']);
+            $instance->set_email($post['employeeEmail']);
             return $instance;
         }
 
@@ -59,27 +59,27 @@
 
         // Setters
         function set_employeeID($employeeID) {
-            if($employeeID != NULL){
+            if(!empty($employeeID)){
                 $this->employeeID = $this->sanitise_input($employeeID);
 	    }
 	}    
         function set_password($password) {
-            if($password != NULL){
+            if(!empty($password)){
                 $this->password = $this->sanitise_input($password);
 	    }
 	}
         function set_employeeName($employeeName) {
-            if($employeeName != NULL){
+            if(!empty($employeeName)){
                 $this->employeeName = $this->sanitise_input($employeeName);
 	    }
 	}
         function set_address($address) {
-            if($address != NULL){
+            if(!empty($address)){
                 $this->address = $this->sanitise_input($address);
 	    }
 	}
         function set_email($email) {
-            if($email != NULL){
+            if(!empty($email)){
                 $this->email = $this->sanitise_input($email);
 	    }
 	}    

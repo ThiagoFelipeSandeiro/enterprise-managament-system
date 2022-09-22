@@ -23,8 +23,18 @@
         }
 
         // METHOD
-        function create_member_record(){
-
+       function create_member_record($DTO){
+            $this->set_member_DAO($this->DTO2DAO($DTO));
+            $command = "INSERT INTO Member (memberName, address, email) VALUES 
+            ('".$this->member_DAO->get_memberName()."',
+            '".$this->member_DAO->get_memberAddress()."',
+            '".$this->member_DAO->get_memberEmail()."');";
+            //Return the result from the query.
+            if(mysqli_query($this->db_conn->get_conn(), $command)){
+                return true;
+            }else{
+                return false;
+            }
         }
 
         function read_member_record($attribute, $search_string){
@@ -55,7 +65,12 @@
         }
 
         function DTO2DAO($DTO){
-            
+            $instance = new MemberDAO();
+            $instance->set_memberID($DTO->get_memberID());
+            $instance->set_memberName($DTO->get_memberName());
+            $instance->set_memberAddress($DTO->get_memberAddress());
+            $instance->set_memberEmail($DTO->get_memberEmail());
+            return $instance;
         }
 
         // Getters

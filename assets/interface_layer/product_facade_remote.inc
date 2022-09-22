@@ -24,6 +24,8 @@
         }
 
         // METHODS
+
+        //TODO fix update valid
         function is_update_valid($post){
             if(empty($post['productPassword']) && empty($post['productEmail'])){
                 return true;
@@ -42,8 +44,9 @@
         function is_create_valid($post){
             if($this->is_empty($post['productName']) ||
                 $this->is_empty($post['productDescription']) ||
-                $this->is_empty($post['productUnitCost']) ||
-                $this->is_empty($post['productQuantityOnHand']) ||
+                //$this->is_empty($post['productUnitCost']) ||
+                $this->not_positive_number($post['productUnitCost']) ||
+                $this->not_positive_number($post['productQuantityOnHand']) ||
                 $this->is_empty($post['productSupplier'])){
                     return false;
                 }else{
@@ -51,6 +54,20 @@
                 }
         }
 
+        //basic number checking function to make sure price and quantity are positive
+         function not_positive_number($attribute){
+       
+            if (! is_numeric($attribute)) {
+                //Add error message.
+                $this->error_message .= '<li>Price and/or quantity needs to be a number.</li>';
+                return true;
+            } elseif($attribute <= 0){
+                $this->error_message .= '<li>Price and/or quantity needs to be positive.</li>';
+                return true;
+            }
+            return false;
+        }
+        
         function is_empty($attribute){
             //Check if email is empty.
             if (empty($attribute)) {

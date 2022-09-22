@@ -90,7 +90,7 @@
                 if($product_interface->is_create_valid($_POST)){
                     $product_interface->set_product_DTO($product_interface->get_product_DTO()->with_post($_POST));
                     if($product_interface->create_product_record($product_interface->get_product_DTO())){
-                        $product_interface->set_error_message("Record was succeddfully created.");
+                        $product_interface->set_error_message("Record was successfully created.");
                         $product_interface->print_error();
                     }else{
                         $product_interface->set_error_message("Record was not created. Please try again.");

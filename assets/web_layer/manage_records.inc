@@ -4,14 +4,17 @@
         // Include
         require_once dirname(__DIR__).'../interface_layer/employee_facade_remote.inc';
         require_once dirname(__DIR__).'../interface_layer/product_facade_remote.inc';
+        require_once dirname(__DIR__).'../interface_layer/member_facade_remote.inc';
         $employee_interface = new EmployeeFacadeRemote();
         $product_interface = new ProductFacadeRemote();  
+        $member_interface = new MemberFacadeRemote();
+
         switch($_POST['CRUD']){
             case 'create-employee':
                 if($employee_interface->is_create_valid($_POST)){
                     $employee_interface->set_employee_DTO($employee_interface->get_employee_DTO()->with_post($_POST));
                     if($employee_interface->create_employee_record($employee_interface->get_employee_DTO())){
-                        $employee_interface->set_error_message("Record was succeddfully created.");
+                        $employee_interface->set_error_message("Record was successfully created.");
                         $employee_interface->print_error();
                     }else{
                         $employee_interface->set_error_message("Record was not created. Please try again.");
@@ -68,6 +71,21 @@
                     }
                 }
                 break;
+            case 'create-member':   
+                if($member_interface->is_create_valid($_POST)){
+                    $member_interface->set_member_DTO($member_interface->get_member_DTO()->with_post($_POST));
+                    if($member_interface->create_member_record($member_interface->get_member_DTO())){
+                        $member_interface->set_error_message("Record was successfully created.");
+                        $member_interface->print_error();
+                    }else{
+                        $member_interface->set_error_message("Record was not created. Please try again.");
+                        $member_interface->print_error();
+                    }
+                }else{
+                    $member_interface->print_error();
+                }
+                break;
+
             case 'create-product':
                 if($product_interface->is_create_valid($_POST)){
                     $product_interface->set_product_DTO($product_interface->get_product_DTO()->with_post($_POST));

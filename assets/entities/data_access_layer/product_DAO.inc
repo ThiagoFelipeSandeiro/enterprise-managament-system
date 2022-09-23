@@ -21,10 +21,10 @@
             $instance = new self();
             $instance->set_productID($row['productID']);
             $instance->set_productName($row['productName']);
-            $instance->set_productDescription($row['productDescription']);
-            $instance->set_productUnitCost($row['productUnitCost']);
-	        $instance->set_productQuantityOnHand($row['productQuantityOnHand']);
-	        $instance->set_productSupplier($row['productproductSupplier']);
+            $instance->set_productDescription($row['description']);
+            $instance->set_productUnitCost($row['unitCost']);
+	        $instance->set_productQuantityOnHand($row['quantityOnHand']);
+	        $instance->set_productSupplier($row['supplier']);
             return $instance;
         }
         // Getters

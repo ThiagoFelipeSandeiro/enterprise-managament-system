@@ -45,6 +45,8 @@
             if($row != NULL){
                 $this->member_DAO = $this->member_DAO->with_row($row);
                 return true;
+            } else{
+                return false;
             }
         }
 

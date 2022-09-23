@@ -46,6 +46,9 @@
             $row = mysqli_fetch_assoc($result);
             if($row != NULL){
                 $this->product_DAO = $this->product_DAO->with_row($row);
+                return true;
+            }else{
+                return false;
             }
         }
 
@@ -53,9 +56,20 @@
             
         }
 
-        function delete_product_record(){
+        function delete_product_record($attribute, $search_string){
+            if(!$this->read_product_record($attribute, $search_string)){
+                return false;
+            }else{
+                $command = "DELETE FROM Product WHERE $attribute = '$search_string';";
+                //Return the result from the query.
+                if(mysqli_query($this->db_conn->get_conn(), $command)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
             
-	}
+	    }
 
         function DAO2DTO($DAO){
             $instance = new ProductDTO();

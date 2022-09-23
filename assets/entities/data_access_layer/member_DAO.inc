@@ -13,7 +13,7 @@
             $this->memberID = "";
             $this->memberName = "";
             $this->memberAddress = "";
-            $this->memberEmail = 0;
+            $this->memberEmail = "";
         }
 
         // Custom Constructor
@@ -21,8 +21,8 @@
             $instance = new self();
             $instance->set_memberID($row['memberID']);
             $instance->set_memberName($row['memberName']);
-            $instance->set_memberAddress($row['memberAddress']);
-            $instance->set_memberEmail($row['memberEmail']);
+            $instance->set_memberAddress($row['address']);
+            $instance->set_memberEmail($row['email']);
             return $instance;
         }
 

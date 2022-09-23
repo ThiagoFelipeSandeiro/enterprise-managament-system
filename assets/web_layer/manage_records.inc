@@ -149,6 +149,19 @@
                     }
                 }
                 break;  
+                case 'delete-product':
+                if($product_interface->is_empty($_POST['productID'])){
+                    $product_interface->print_error();
+                }else{
+                    if($product_interface->delete_product_record('productID', $_POST['productID'])){
+                        $product_interface->set_error_message("Record with product ID of ".$_POST['productID']." was deleted.");
+                        $product_interface->print_error();
+                    }else{
+                        $product_interface->set_error_message("No record with product ID of ".$_POST['productID']." was found.");
+                        $product_interface->print_error();
+                    }
+                }
+                break;
         }
     }
 ?>

@@ -102,6 +102,19 @@
                     }
                 }
                 break;  
+            case 'delete-member':
+                if($member_interface->is_empty($_POST['memberID'])){
+                    $member_interface->print_error();
+                }else{
+                    if($member_interface->delete_member_record('memberID', $_POST['memberID'])){
+                        $member_interface->set_error_message("Record with member ID of ".$_POST['memberID']." was deleted.");
+                        $member_interface->print_error();
+                    }else{
+                        $member_interface->set_error_message("No record with member ID of ".$_POST['memberID']." was found.");
+                        $member_interface->print_error();
+                    }
+                }
+                break;
            
             case 'create-product':
                 if($product_interface->is_create_valid($_POST)){

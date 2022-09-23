@@ -55,7 +55,7 @@
 
         function delete_product_record(){
             
-	}
+	    }
 
         function DAO2DTO($DAO){
             $instance = new ProductDTO();

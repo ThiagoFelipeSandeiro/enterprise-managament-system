@@ -85,7 +85,24 @@
                     $member_interface->print_error();
                 }
                 break;
-
+            case 'read-member':
+                if($member_interface->is_empty($_POST['memberID'])){
+                    $member_interface->print_error();
+                }else{
+                    $member_interface->read_member_record('memberID', $_POST['memberID']);
+                    if($member_interface->get_member_facade()->get_member_DAO()->get_memberID() == NULL){
+                        $member_interface->set_error_message("No record with member ID of ".$_POST['memberID']." was found.");
+                        $member_interface->print_error();
+                    }else{
+                        $_SESSION['member_ID'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberID();
+                        $_SESSION['member_name'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberName();
+                        $_SESSION['member_address'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberAddress();
+                        $_SESSION['member_email'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberEmail();
+                        header ('location: display_member.php');
+                    }
+                }
+                break;  
+           
             case 'create-product':
                 if($product_interface->is_create_valid($_POST)){
                     $product_interface->set_product_DTO($product_interface->get_product_DTO()->with_post($_POST));

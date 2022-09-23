@@ -117,6 +117,25 @@
                     $product_interface->print_error();
                 }
                 break;  
+            case 'read-product':
+                if($product_interface->is_empty($_POST['productID'])){
+                    $product_interface->print_error();
+                }else{
+                    $product_interface->read_product_record('productID', $_POST['productID']);
+                    if($product_interface->get_product_facade()->get_product_DAO()->get_productID() == NULL){
+                        $product_interface->set_error_message("No record with product ID of ".$_POST['productID']." was found.");
+                        $product_interface->print_error();
+                    }else{
+                        $_SESSION['product_ID'] = $product_interface->get_product_facade()->get_product_DAO()->get_productID();
+                        $_SESSION['product_name'] = $product_interface->get_product_facade()->get_product_DAO()->get_productName();
+                        $_SESSION['product_description'] = $product_interface->get_product_facade()->get_product_DAO()->get_productDescription();
+                        $_SESSION['product_unitCost'] = $product_interface->get_product_facade()->get_product_DAO()->get_productUnitCost();
+                        $_SESSION['product_quantityOnHand'] = $product_interface->get_product_facade()->get_product_DAO()->get_productQuantityOnHand();
+                        $_SESSION['product_supplier'] = $product_interface->get_product_facade()->get_product_DAO()->get_productSupplier();
+                        header ('location: display_product.php');
+                    }
+                }
+                break;  
         }
     }
 ?>

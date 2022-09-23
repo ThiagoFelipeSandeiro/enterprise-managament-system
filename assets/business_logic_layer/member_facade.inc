@@ -44,6 +44,7 @@
             $row = mysqli_fetch_assoc($result);
             if($row != NULL){
                 $this->member_DAO = $this->member_DAO->with_row($row);
+                return true;
             }
         }
 
@@ -51,7 +52,18 @@
             
         }
 
-        function delete_member_record(){
+        function delete_member_record($attribute, $search_string){
+            if(!$this->read_member_record($attribute, $search_string)){
+                return false;
+            }else{
+                $command = "DELETE FROM Member WHERE $attribute = '$search_string';";
+                //Return the result from the query.
+                if(mysqli_query($this->db_conn->get_conn(), $command)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
             
 	    }
 

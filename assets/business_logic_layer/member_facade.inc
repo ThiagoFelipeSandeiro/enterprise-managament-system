@@ -50,8 +50,31 @@
             }
         }
 
-        function update_member_record(){
-            
+        function update_member_record($DTO){
+            if(!$this->read_member_record('memberID', $DTO->get_memberID())){
+                return false;
+            }else{
+                if(!empty($DTO->get_memberName())){
+                    $this->member_DAO->set_memberName($DTO->get_memberName());
+                }
+                if(!empty($DTO->get_memberAddress())){
+                    $this->member_DAO->set_memberAddress($DTO->get_memberAddress());
+                }
+                if(!empty($DTO->get_memberEmail())){
+                    $this->member_DAO->set_memberEmail($DTO->get_memberEmail());
+                }
+                $command = "UPDATE Member 
+                    SET memberName = '".$this->member_DAO->get_memberName()."',
+                    address = '".$this->member_DAO->get_memberAddress()."',
+                    email = '".$this->member_DAO->get_memberEmail()."'
+                    WHERE memberID = '".$this->member_DAO->get_memberID()."';";
+                //Return the result from the query.
+                if(mysqli_query($this->db_conn->get_conn(), $command)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
         }
 
         function delete_member_record($attribute, $search_string){

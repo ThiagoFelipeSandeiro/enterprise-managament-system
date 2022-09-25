@@ -52,8 +52,39 @@
             }
         }
 
-        function update_product_record(){
-            
+        function update_product_record($DTO){
+            if(!$this->read_product_record('productID', $DTO->get_productID())){
+                return false;
+            }else{
+                if(!empty($DTO->get_productName())){
+                    $this->product_DAO->set_productName($DTO->get_productName());
+                }
+                if(!empty($DTO->get_productDescription())){
+                    $this->product_DAO->set_productDescription($DTO->get_productDescription());
+                }
+                if($DTO->get_productUnitCost() > 0){
+                    $this->product_DAO->set_productUnitCost($DTO->get_productUnitCost());
+                }
+                if($DTO->get_productQuantityOnHand() >= 0){
+                    $this->product_DAO->set_productQuantityOnHand($DTO->get_productQuantityOnHand());
+                }
+                if(!empty($DTO->get_productSupplier())){
+                    $this->product_DAO->set_productSupplier($DTO->get_productSupplier());
+                }
+                $command = "UPDATE Product 
+                    SET productName = '".$this->product_DAO->get_productName()."',
+                    description = '".$this->product_DAO->get_productDescription()."',
+                    unitCost = '".$this->product_DAO->get_productUnitCost()."',
+                    quantityOnHand = '".$this->product_DAO->get_productQuantityOnHand()."',
+                    supplier = '".$this->product_DAO->get_productSupplier()."'
+                    WHERE productID = '".$this->product_DAO->get_productID()."';";
+                //Return the result from the query.
+                if(mysqli_query($this->db_conn->get_conn(), $command)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
         }
 
         function delete_product_record($attribute, $search_string){

@@ -30,14 +30,12 @@
                 return true;
             }
             if(!empty($post['memberAddress']) && !empty($post['memberEmail'])){
-                return $this->is_password($post) && $this->is_email($post);
+                return $this->is_email($post);
             }
             if(empty($post['memberAddress']) && !empty($post['memberEmail'])){
                 return $this->is_email($post);
             }
-            if(!empty($post['memberAddress']) && empty($post['memberEmail'])){
-                return $this->is_password($post);
-            }
+ 
         }
 
         function is_create_valid($post){

@@ -102,6 +102,22 @@
                     }
                 }
                 break;  
+            case 'update-member':
+                if($member_interface->is_empty($_POST['memberID'])){
+                    $member_interface->print_error();
+                }elseif($member_interface->is_update_valid($_POST)){
+                    $member_interface->set_member_DTO($member_interface->get_member_DTO()->with_post($_POST));
+                    if($member_interface->update_member_record($member_interface->get_member_DTO())){
+                        $member_interface->set_error_message("Record with member ID of ".$member_interface->get_member_DTO()->get_memberID()." was updated.");
+                        $member_interface->print_error();
+                    }else{
+                        $member_interface->set_error_message("No record with member ID of ".$member_interface->get_member_DTO()->get_memberID()." was found.");
+                        $member_interface->print_error();
+                    }
+                }else{
+                    $member_interface->print_error();
+                }
+                break;
             case 'delete-member':
                 if($member_interface->is_empty($_POST['memberID'])){
                     $member_interface->print_error();

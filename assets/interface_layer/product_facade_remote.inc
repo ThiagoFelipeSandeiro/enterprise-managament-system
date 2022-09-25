@@ -26,25 +26,18 @@
         // METHODS
 
         //TODO fix update valid
+        //currently no real check for valid number but somehow still works
+        //entering in an invalid number will not overwrite database entry
         function is_update_valid($post){
-            if(empty($post['productPassword']) && empty($post['productEmail'])){
+            if(empty($post['productName']) && empty($post['productDescription']) && empty($post['productSupplier'])){
                 return true;
             }
-            if(!empty($post['productPassword']) && !empty($post['productEmail'])){
-                return $this->is_password($post) && $this->is_email($post);
-            }
-            if(empty($post['productPassword']) && !empty($post['productEmail'])){
-                return $this->is_email($post);
-            }
-            if(!empty($post['productPassword']) && empty($post['productEmail'])){
-                return $this->is_password($post);
-            }
+            return true;
         }
 
         function is_create_valid($post){
             if($this->is_empty($post['productName']) ||
                 $this->is_empty($post['productDescription']) ||
-                //$this->is_empty($post['productUnitCost']) ||
                 $this->not_positive_number($post['productUnitCost']) ||
                 $this->not_positive_number($post['productQuantityOnHand']) ||
                 $this->is_empty($post['productSupplier'])){

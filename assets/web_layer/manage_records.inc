@@ -164,8 +164,24 @@
                         header ('location: display_product.php');
                     }
                 }
-                break;  
-                case 'delete-product':
+                break; 
+            case 'update-product':
+                if($product_interface->is_empty($_POST['productID'])){
+                    $product_interface->print_error();
+                }elseif($product_interface->is_update_valid($_POST)){
+                    $product_interface->set_product_DTO($product_interface->get_product_DTO()->with_post($_POST));
+                    if($product_interface->update_product_record($product_interface->get_product_DTO())){
+                        $product_interface->set_error_message("Record with product ID of ".$product_interface->get_product_DTO()->get_productID()." was updated.");
+                        $product_interface->print_error();
+                    }else{
+                        $product_interface->set_error_message("No record with product ID of ".$product_interface->get_product_DTO()->get_productID()." was found.");
+                        $product_interface->print_error();
+                    }
+                }else{
+                    $product_interface->print_error();
+                }
+                break;
+            case 'delete-product':
                 if($product_interface->is_empty($_POST['productID'])){
                     $product_interface->print_error();
                 }else{

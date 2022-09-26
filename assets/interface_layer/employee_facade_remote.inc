@@ -47,7 +47,7 @@
             $this->read_employee_record("email", $this->employee_DTO->get_email());
             // this check has been changed to simply hash the given password using md5 and match it to the stored md5 hash in the database
             if($this->employee_DTO->get_email() == $this->employee_facade->get_employee_DAO()->get_email() &&
-                hash('md5', $this->employee_DTO->get_password()) == $this->employee_facade->get_employee_DAO()->get_password()){
+                password_verify($this->employee_DTO->get_password(), $this->employee_facade->get_employee_DAO()->get_password())){
                     return true;
             }else{
                 //error

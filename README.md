@@ -53,8 +53,8 @@ CREATE TABLE purchased_products(
 );
 
 --employee insert
-INSERT INTO employee(password, employeeName, address, email) VALUES ('P@ssw0rd', 'Bobby', 'Melbourne', 'bobby@swin.edu.au');
-INSERT INTO employee(password, employeeName, address, email) VALUES ('P@ssw0rd', 'Poppy', 'Melbourne', 'poppy@swin.edu.au');
+INSERT INTO employee(password, employeeName, address, email) VALUES ('$2y$10$RXW65hPF.vDa63tPta2.1..JJCITyo7R5qUewJNmkf8y1c3AoC/fG', 'Bobby', 'Melbourne', 'bobby@swin.edu.au');
+INSERT INTO employee(password, employeeName, address, email) VALUES ('$2y$10$RXW65hPF.vDa63tPta2.1..JJCITyo7R5qUewJNmkf8y1c3AoC/fG', 'Poppy', 'Melbourne', 'poppy@swin.edu.au');
 --product insert
 INSERT INTO product(productName, productDescription, productUnitCost, productQuantityOnHand, productSupplier) VALUES ('Carrot', 'Ohakune Carrots', 1.50, 150, 'Kim Young & Sons');
 INSERT INTO product(productName, productDescription, productUnitCost, productQuantityOnHand, productSupplier) VALUES ('Acai', 'Acai berry from the Brazilian Amazon', 2.50, 1500, 'Tropical Brazil');

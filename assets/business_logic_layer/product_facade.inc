@@ -40,7 +40,7 @@
         }
 
         function read_product_record($attribute, $search_string){
-            $command = "SELECT * FROM Product WHERE $attribute = '$search_string';";
+            $command = "SELECT * FROM product WHERE $attribute = '$search_string';";
             //Return the result from the query.
             $result = mysqli_query($this->db_conn->get_conn(), $command);
             $row = mysqli_fetch_assoc($result);

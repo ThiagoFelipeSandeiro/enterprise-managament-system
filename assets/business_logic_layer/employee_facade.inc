@@ -23,11 +23,10 @@
         }
 
         // METHOD
-        // password hashing function changed to be simple md5 as password_hash creates a salt every time it is run
         function create_employee_record($DTO){
             $this->set_employee_DAO($this->DTO2DAO($DTO));
             $command = "INSERT INTO Employee (password, employeeName, address, email) VALUES    
-            ('".hash('md5', $this->employee_DAO->get_password())."',
+            ('".password_hash($this->employee_DAO->get_password(), PASSWORD_DEFAULT)."',
             '".$this->employee_DAO->get_employeeName()."',
             '".$this->employee_DAO->get_address()."',
             '".$this->employee_DAO->get_email()."');";

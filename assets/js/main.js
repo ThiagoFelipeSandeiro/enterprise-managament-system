@@ -145,19 +145,19 @@ function change() {
             "<label for='productID'>ID</label> "+
                 "<input type='text' name='productID' placeholder='Product ID...' /><br /><br />"+
             
-            "<label for='productName'>Name</label>"+
+            "<label for='productName'>Name</label> "+
                 "<input type='text' name='productName' placeholder='Product Name...' /><br /><br />"+
 
-            "<label for='productDescription'>Decription</label>"+
+            "<label for='productDescription'>Decription</label> "+
                 "<input type='text' name='productDescription' placeholder='Product Description...' /><br /><br />"+
 
-            "<label for='productUnitCost'>Unit Cost</label>"+
+            "<label for='productUnitCost'>Unit Cost</label> "+
                 "<input type='number' name='productUnitCost' placeholder='Product Unit Cost...' step='0.01' value='0.00'/><br /><br />"+
 
-            "<label for='productQuantityOnHand'>Product Quantity in Stock</label>"+
+            "<label for='productQuantityOnHand'>Product Quantity in Stock</label> "+
                 "<input type='number' name='productQuantityOnHand' placeholder='Product Quantity in Stock...' step='1' value='0'/><br /><br />"+
 
-            "<label for='productSupplier'>Supplier</label>"+
+            "<label for='productSupplier'>Supplier</label> "+
                 "<input type='text' name='productSupplier' placeholder='Product Supplier...' /><br /><br />";
         document.getElementById("product-details-btn").innerHTML = "<input form='manage-product-form' type='submit'/>";
             break;
@@ -167,6 +167,95 @@ function change() {
                 "<input type='text' name='productID' placeholder='Product ID...' /><br /><br />";
             document.getElementById("product-details-btn").innerHTML = "<input form='manage-product-form' type='submit'/>";
             break;
+        case 'create-sale':
+            document.getElementById("sale-details").innerHTML = 
+            "<label for='memberID'>ID</label> "+
+                "<input type='text' name='memberID' placeholder='Member ID...' /><br /><br />"+
+            "<label class='product_ID' for='productID'>ID</label> "+
+                "<input type='text' name='productID' placeholder='Product ID...' /> <button type='button' onclick='add_product_to_cart()' >Add Product</button> <br /><br />"+
+            "<label for='quantity'>Quantity</label> "+
+                "<input type='number' name='quantity' placeholder='Product Quantity...' step='1' value='0'/><br /><br />";
+            document.getElementById("sale-details-btn").innerHTML = "<input form='manage-sale-form' type='submit'/>";
+            break;
+        case 'read-sale':
+            break;
+        case 'update-sale':
+            break;
+        case 'delete-sale':
+            break;
   }
+
+}
+
+function add_product_to_cart(){
+    // Get count of cart items:
+    const parent_node = document.getElementById("sale-details");
+
+    const hr = document.createElement("hr");
+    hr.setAttribute("style", "width: 15%;display: inline-block;");
+    parent_node.appendChild(hr);
+    parent_node.appendChild(document.createElement("br"));
+    parent_node.appendChild(document.createElement("br"));
+
+    let count = document.getElementsByClassName("product_ID").length-1;
+
+    // Create a "label" node:
+    const label_node_ID = document.createElement("label");
+
+    // Set node attributes:
+    label_node_ID.setAttribute("for", "productID_"+count);
+
+    // Create a text node:
+    const label_text_node_id = document.createTextNode("ID");
+
+    // Append the text node to the "label" node:
+    label_node_ID.appendChild(label_text_node_id);
+
+    // Create an "input" node:
+    const input_node_id = document.createElement("input");
+
+    // Set node attributes:
+    input_node_id.setAttribute("class", "product_ID");
+    input_node_id.setAttribute("type", "text");
+    input_node_id.setAttribute("name", "productID_"+count);
+    input_node_id.setAttribute("placeholder", "Product ID...");
+
+    // Append the "input" node to the label:
+    label_node_ID.appendChild(input_node_id);
+
+    // Append the "label" node to the list:
+    parent_node.appendChild(label_node_ID);
+    parent_node.appendChild(document.createElement("br"));
+    parent_node.appendChild(document.createElement("br"));
+
+    // Create a "label" node:
+    const label_node_quant = document.createElement("label");
+
+    // Set node attributes:
+    label_node_quant.setAttribute("for", "quantity_"+count);
+
+    // Create a text node:
+    const label_text_node_quant = document.createTextNode("Quantity");
+
+    // Append the text node to the "label" node:
+    label_node_quant.appendChild(label_text_node_quant);
+
+    // Create an "input" node:
+    const input_node_quant = document.createElement("input");
+
+    // Set node attributes:
+    input_node_quant.setAttribute("type", "number");
+    input_node_quant.setAttribute("name", "quantity_"+count);
+    input_node_quant.setAttribute("placeholder", "Product Quantity...");
+    input_node_quant.setAttribute("step", "1");
+    input_node_quant.setAttribute("value", "0");
+
+    // Append the "input" node to the label:
+    label_node_quant.appendChild(input_node_quant);
+
+    // Append the "label" node to the list:
+    parent_node.appendChild(label_node_quant);
+    parent_node.appendChild(document.createElement("br"));
+    parent_node.appendChild(document.createElement("br"));
 
 }

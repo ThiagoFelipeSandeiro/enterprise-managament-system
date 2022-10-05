@@ -23,7 +23,7 @@
         <article id="manage-article">
             <!-- Header & Logout Button -->
             <section id="manage">
-              <div style="display: flex;flex-direction: row;"><h1 id="h1" style="width: 95%;">Home Page</h1>
+              <div style="display: flex;flex-direction: row;"><h1 id="h1" style="width: 95%;">Go-to-Gro EMS | Home Page</h1>
                 <div style="align-items: center;display: grid;">
                     <button><a style='text-decoration:none;' href='logout.php'>Logout</a></button>
                 </div>
@@ -87,6 +87,27 @@
                           <input type='radio' name='CRUD' value='delete-product' />Delete
                           <br/><br/>
                         <div id='product-details-btn'></div>
+                      </fieldset>
+                      <br/>
+                    </section>
+                  </form>
+                </div>
+                <hr/><br/>
+                <!-- Sale Form -->
+                <div id="manage-sale">
+                  <form id='manage-sale-form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method='post' novalidate='novalidate'>
+                    <section>
+                      <!-- Sale Details -->
+                      <fieldset>
+                        <legend>Sale Details</legend>
+                        <div id='sale-details'></div>
+                        <label for='CRUD'></label>
+                          <input type='radio' name='CRUD' value='create-sale' />Add
+                          <input type='radio' name='CRUD' value='read-sale' />Display
+                          <input type='radio' name='CRUD' value='update-sale' />Update
+                          <input type='radio' name='CRUD' value='delete-sale' />Delete
+                          <br/><br/>
+                        <div id='sale-details-btn'></div>
                       </fieldset>
                       <br/>
                     </section>

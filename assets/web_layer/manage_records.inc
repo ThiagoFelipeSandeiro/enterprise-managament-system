@@ -5,9 +5,11 @@
         require_once dirname(__DIR__).'../interface_layer/employee_facade_remote.inc';
         require_once dirname(__DIR__).'../interface_layer/product_facade_remote.inc';
         require_once dirname(__DIR__).'../interface_layer/member_facade_remote.inc';
+        require_once dirname(__DIR__).'../interface_layer/sale_facade_remote.inc';
         $employee_interface = new EmployeeFacadeRemote();
         $product_interface = new ProductFacadeRemote();  
         $member_interface = new MemberFacadeRemote();
+        $sale_interface = new SaleFacadeRemote();
 
         switch($_POST['CRUD']){
             case 'create-employee':
@@ -194,6 +196,23 @@
                     }
                 }
                 break;
+
+                // Create Sale
+                case 'create-sale':
+                    if($sale_interface->is_create_valid($_POST)){
+                        $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->with_post($_POST));
+                        $sale_interface->set_purchase_details_DTO($sale_interface->get_purchase_details_DTO()->with_post($_POST));
+                        if($sale_interface->create_sale_record($sale_interface->get_purchase_DTO(), $sale_interface->get_purchase_details_DTO())){
+                            $sale_interface->set_error_message("Record was successfully created.");
+                            $sale_interface->print_error();
+                        }else{
+                            $sale_interface->set_error_message("Record was not created. Please try again.");
+                            $sale_interface->print_error();
+                        }
+                    }else{
+                        $sale_interface->print_error();
+                    }
+                    break; 
         }
     }
 ?>

@@ -28,29 +28,76 @@
 
         // METHOD
         function create_sale_record($purchase_DTO, $purchase_details_DTO){
-            $bool = [false,false];
-            $this->set_purchase_DAO($this->purchase_DTO2DAO($purchase_DTO));
-            $command = "INSERT INTO purchase (memberID) VALUES ('".$this->purchase_DAO->get_memberID()."');";
-            // get result from the query.
-            if(mysqli_query($this->db_conn->get_conn(), $command)){
-                $this->purchase_details_DAO->set_purchaseID($this->db_conn->get_conn()->insert_id);
-                $bool[0] = true;
 
-                $this->set_purchase_details_DAO($this->purchase_details_DTO2DAO($purchase_details_DTO));
-                $command = "INSERT INTO purchased_products (purchaseID, productID, quantity, subTotal) VALUES ('
-                ".$this->purchase_details_DAO->get_purchaseID()."',
-                ".$this->purchase_details_DAO->get_productID()."',
-                ".$this->purchase_details_DAO->get_quantity()."',
-                ".$this->purchase_details_DAO->get_sub_total()."'
-                );";
-                // get result from the query.
-                if(mysqli_query($this->db_conn->get_conn(), $command)){
-                    $bool[1] = true;
-                }
+            // Set DAOs
+            $this->set_purchase_DAO($this->purchase_DTO2DAO($purchase_DTO));
+            $this->set_purchase_details_DAO($this->purchase_details_DTO2DAO($purchase_details_DTO));
+
+            // Get Stock Level for product
+            $command = "SELECT IF(productQuantityOnHand > ".$this->purchase_details_DAO->get_quantity().", TRUE, FALSE) AS bool FROM product WHERE productID = ".$this->purchase_details_DAO->get_productID().";";
+            $result = mysqli_query($this->db_conn->get_conn(), $command);
+            if(!$result){
+                return false;
+            }
+            $row = $result->fetch_assoc();
+
+            if(!$row["bool"]){
+                $result->free_result();
+                //Stock too low
+                echo '<script type="text/javascript">alert("Stock too low");</script>';
+                return false;
+            }
+            
+            // Turn autocommit off
+            $this->db_conn->get_conn()->autocommit(FALSE);
+            // Start Transaction
+            $this->db_conn->get_conn()->begin_transaction();
+
+            // Insert into purchase.
+            $command = "INSERT INTO purchase (memberID) VALUES ('".$this->purchase_DAO->get_memberID()."');";
+            echo $command;
+            if(!mysqli_query($this->db_conn->get_conn(), $command)){
+                $this->db_conn->get_conn()->rollback();
+                // Turn autocommit on
+                $this->db_conn->get_conn()->autocommit(TRUE);
+                return false;
+            }
+                        
+            // Set purchaseID.
+            $command = "INSERT INTO purchased_products (purchaseID, productID, quantity, subTotal) VALUES
+                ( ".$this->db_conn->get_conn()->insert_id.",
+                ".$this->purchase_details_DAO->get_productID()." ,
+                ".$this->purchase_details_DAO->get_quantity()." ,
+                (select p.productUnitCost from product AS p WHERE p.productID = 1)*".$this->purchase_details_DAO->get_quantity().");";
+            if(!mysqli_query($this->db_conn->get_conn(), $command)){
+                $this->db_conn->get_conn()->rollback();
+                // Turn autocommit on
+                $this->db_conn->get_conn()->autocommit(TRUE);
+                return false;
             }
 
-            //Return the result from the query.
-            return $bool[0] && $bool[1];
+            // Get current stock level.
+            $command = "SET @stock_level = (select productQuantityOnHand from product WHERE productID = ".$this->purchase_details_DAO->get_productID().");";
+            if(!mysqli_query($this->db_conn->get_conn(), $command)){
+                $this->db_conn->get_conn()->rollback();
+                // Turn autocommit on
+                $this->db_conn->get_conn()->autocommit(TRUE);
+                return false;
+            }
+            // Set new stock level.
+            $command = "UPDATE product AS p SET p.productQuantityOnHand = @stock_level - ".$this->purchase_details_DAO->get_quantity()." WHERE p.productID = ".$this->purchase_details_DAO->get_productID().";";
+            if(!mysqli_query($this->db_conn->get_conn(), $command)){
+                $this->db_conn->get_conn()->rollback();
+                // Turn autocommit on
+                $this->db_conn->get_conn()->autocommit(TRUE);
+                return false;
+            }
+        
+            /* If code reaches this point without errors then commit the data in the database */
+            $this->db_conn->get_conn()->commit();
+            // Turn autocommit on
+            $this->db_conn->get_conn()->autocommit(TRUE);
+            return true;
         }
 
         function read_product_record($attribute, $search_string){
@@ -116,14 +163,14 @@
             
 	    }
 
-        function purchase_DAO2DTO($DAO){
+        private function purchase_DAO2DTO($DAO){
             $instance = new PurchaseDTO();
             $instance->set_purchaseID($DAO->get_purchaseID());
             $instance->set_date($DAO->get_date());
             $instance->set_memberID($DAO->get_memberID());
             return $instance;
         }
-        function purchase_DTO2DAO($DTO){
+        private function purchase_DTO2DAO($DTO){
             $instance = new PurchaseDAO();
             $instance->set_purchaseID($DTO->get_purchaseID());
             $instance->set_date($DTO->get_date());
@@ -131,7 +178,7 @@
             return $instance;
         }
 
-        function purchase_details_DAO2DTO($DAO){
+        private function purchase_details_DAO2DTO($DAO){
             $instance = new PurchaseDetailsDTO();
             $instance->set_productID($DAO->get_productID());
             $instance->set_purchaseID($DAO->get_purchaseID());
@@ -139,7 +186,7 @@
             $instance->set_sub_total($DAO->get_sub_total());
             return $instance;
         }
-        function purchase_details_DTO2DAO($DTO){
+        private function purchase_details_DTO2DAO($DTO){
             $instance = new PurchaseDetailsDAO();
             $instance->set_productID($DTO->get_productID());
             $instance->set_purchaseID($DTO->get_purchaseID());

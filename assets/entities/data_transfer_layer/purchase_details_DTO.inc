@@ -25,9 +25,9 @@
         public static function with_post($post) {
             $instance = new self();
             $instance->set_productID($post['productID']);
-            $instance->set_purchaseID($post['purchaseID']);
+            //$instance->set_purchaseID($post['purchaseID']);
             $instance->set_quantity($post['quantity']);
-            $instance->set_sub_total($post['sub_total']);
+            //$instance->set_sub_total($post['sub_total']);
             return $instance;
         }
         // Getters

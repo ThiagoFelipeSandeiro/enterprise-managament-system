@@ -106,6 +106,10 @@
             return $this->member_facade->delete_member_record($attribute, $search_string);
         }
 
+        function export_to_csv(){
+            return $this->member_facade->export_to_csv();
+        }
+
         // Getters
         function get_member_DTO(){
             return $this->member_DTO;

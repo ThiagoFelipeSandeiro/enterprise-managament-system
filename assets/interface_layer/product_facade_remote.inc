@@ -108,6 +108,10 @@
             return $this->product_facade->delete_product_record($attribute, $search_string);
         }
 
+        function export_to_csv(){
+            return $this->product_facade->export_to_csv();
+        }
+
         // Getters
         function get_product_DTO(){
             return $this->product_DTO;

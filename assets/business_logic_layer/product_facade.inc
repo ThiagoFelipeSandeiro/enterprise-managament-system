@@ -102,6 +102,11 @@
             
 	    }
 
+        function export_to_csv(){
+            echo "Placeholder. Function will export product table to CSV";
+            return true;
+        }
+
         function DAO2DTO($DAO){
             $instance = new ProductDTO();
             $instance->set_productID($DAO->get_productID());

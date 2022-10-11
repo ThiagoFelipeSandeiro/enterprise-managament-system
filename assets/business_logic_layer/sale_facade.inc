@@ -163,6 +163,11 @@
             
 	    }
 
+        function export_to_csv(){
+            echo "Placeholder. Function will export sales related tables to CSV";
+            return true;
+        }
+
         private function purchase_DAO2DTO($DAO){
             $instance = new PurchaseDTO();
             $instance->set_purchaseID($DAO->get_purchaseID());

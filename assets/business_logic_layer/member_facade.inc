@@ -92,6 +92,11 @@
             
 	    }
 
+        function export_to_csv(){
+            echo "Placeholder. Function will export Member table to CSV";
+            return true;
+        }
+
         function DAO2DTO($DAO){
             $instance = new MemberDTO();
             $instance->set_memberID($DAO->get_memberID());

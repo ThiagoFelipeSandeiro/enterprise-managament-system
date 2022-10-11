@@ -96,6 +96,11 @@
             }
         }
 
+        function export_to_csv(){
+            echo "Placeholder. Function will export employee table to CSV";
+            return true;
+        }
+
         function DAO2DTO($DAO){
             $instance = new EmployeeDTO();
             $instance->set_employeeID($DAO->get_employeeID());

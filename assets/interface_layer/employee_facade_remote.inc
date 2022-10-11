@@ -53,6 +53,7 @@
                 //error
                 $this->error_message .= "<li>Access not granted.</li>";
                 return false;
+                //return true;
             }
         }
 
@@ -147,6 +148,10 @@
 
         function delete_employee_record($attribute, $search_string){
             return $this->employee_facade->delete_employee_record($attribute, $search_string);
+        }
+        
+        function export_to_csv(){
+            return $this->employee_facade->export_to_csv();
         }
 
         // Getters

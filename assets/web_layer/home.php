@@ -65,6 +65,7 @@
                           <input type='radio' name='CRUD' value='read-member' />Display
                           <input type='radio' name='CRUD' value='update-member' />Update
                           <input type='radio' name='CRUD' value='delete-member' />Delete
+                          <input type='submit' name='CRUD' value='export-member' />
                           <br/><br/>
                           <div id='member-details-btn'></div>
                       </fieldset>
@@ -86,6 +87,7 @@
                           <input type='radio' name='CRUD' value='read-product' />Display
                           <input type='radio' name='CRUD' value='update-product' />Update
                           <input type='radio' name='CRUD' value='delete-product' />Delete
+                          <input type='submit' name='CRUD' value='export-product' />
                           <br/><br/>
                         <div id='product-details-btn'></div>
                       </fieldset>
@@ -107,6 +109,7 @@
                           <input type='radio' name='CRUD' value='read-sale' />Display
                           <input type='radio' name='CRUD' value='update-sale' />Update
                           <input type='radio' name='CRUD' value='delete-sale' />Delete
+                          <input type='submit' name='CRUD' value='export-sale' />
                           <br/><br/>
                         <div id='sale-details-btn'></div>
                       </fieldset>

@@ -73,6 +73,9 @@
                     }
                 }
                 break;
+            case 'export-employee':
+                $employee_interface->export_to_csv();
+                break;
             case 'create-member':   
                 if($member_interface->is_create_valid($_POST)){
                     $member_interface->set_member_DTO($member_interface->get_member_DTO()->with_post($_POST));

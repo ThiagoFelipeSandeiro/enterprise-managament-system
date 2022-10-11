@@ -43,6 +43,7 @@
                           <input type='radio' name='CRUD' value='read-employee' />Display
                           <input type='radio' name='CRUD' value='update-employee' />Update
                           <input type='radio' name='CRUD' value='delete-employee' />Delete
+                          <input type='submit' name='CRUD' value='export-employee' />
                           <br/><br/>
                           <div id='employee-details-btn'></div>
                       </fieldset>

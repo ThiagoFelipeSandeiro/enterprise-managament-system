@@ -60,6 +60,7 @@ INSERT INTO product(productName, productDescription, productUnitCost, productQua
 INSERT INTO product(productName, productDescription, productUnitCost, productQuantityOnHand, productSupplier) VALUES ('Acai', 'Acai berry from the Brazilian Amazon', 2.50, 1500, 'Tropical Brazil');
 --member insert
 INSERT INTO member(memberName, address, email) VALUES ('Jeff Bezos', 'USA', 'jeff@amazon.com');
+INSERT INTO member(memberName, address, email) VALUES ('Neymar da Silva Santos Junior', 'Brazil', 'neymar@brazil.com.br');
 --purchase insert
 INSERT INTO purchase(memberID) VALUES (1);
 --purchased_products insert

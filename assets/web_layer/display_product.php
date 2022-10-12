@@ -27,7 +27,7 @@
 
             <!-- Section 1 -->
             <section id="manage">
-              <div style="display: flex;flex-direction: row;"><h1 id="h1" style="width: 95%;">Home Page</h1>
+              <div style="display: flex;flex-direction: row;"><h1 id="h1" style="width: 95%;">Go-to-Gro EMS | Display Product Page</h1>
                 <div style="align-items: center;display: grid;">
                     <button><a style='text-decoration:none;' href='logout.php'>Logout</a></button>
                 </div>

@@ -178,6 +178,10 @@ function change() {
             document.getElementById("sale-details-btn").innerHTML = "<input form='manage-sale-form' type='submit'/>";
             break;
         case 'read-sale':
+            document.getElementById("sale-details").innerHTML = 
+            "<label for='purchaseID'>Purchase ID</label> "+
+                "<input type='text' name='purchaseID' placeholder='Purchase ID...' /><br /><br />";
+            document.getElementById("sale-details-btn").innerHTML = "<input form='manage-sale-form' type='submit'/>";
             break;
         case 'update-sale':
             break;

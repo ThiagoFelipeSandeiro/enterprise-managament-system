@@ -13,12 +13,14 @@
         private $db_conn;
         private $purchase_DAO;
         private $purchase_details_DAO;
+        private $purchase_details_DAO_array;
 
         // Default Constructor
         function __construct(){
             $this->db_conn = new ConnectDB();
-            $this->product_DAO = new PurchaseDAO();
+            $this->purchase_DAO = new PurchaseDAO();
             $this->purchase_details_DAO = new PurchaseDetailsDAO();
+            $this->purchase_details_DAO_array = array();
         }
 
         // Default Destructor
@@ -55,7 +57,6 @@
 
             // Insert into purchase.
             $command = "INSERT INTO purchase (memberID) VALUES ('".$this->purchase_DAO->get_memberID()."');";
-            echo $command;
             if(!mysqli_query($this->db_conn->get_conn(), $command)){
                 $this->db_conn->get_conn()->rollback();
                 // Turn autocommit on
@@ -100,14 +101,29 @@
             return true;
         }
 
-        function read_product_record($attribute, $search_string){
-            $command = "SELECT * FROM product WHERE $attribute = '$search_string';";
+        function read_sale_record($attribute, $search_string){
+            $command = "SELECT * FROM purchase WHERE $attribute = '$search_string';";
             //Return the result from the query.
             $result = mysqli_query($this->db_conn->get_conn(), $command);
             $row = mysqli_fetch_assoc($result);
             if($row != NULL){
-                $this->product_DAO = $this->product_DAO->with_row($row);
-                return true;
+                
+                $this->set_purchase_DAO($this->purchase_DAO->with_row($row));
+
+                $command = "SELECT * FROM purchased_products WHERE $attribute = '$search_string';";
+                //Return the result from the query.
+                $result = mysqli_query($this->db_conn->get_conn(), $command);
+                $row = mysqli_fetch_all($result);
+                if($row != NULL){
+                    for($i = 0; $i < count($row); $i++){
+                        $this->purchase_details_DAO_array[$i] = new PurchaseDetailsDAO();
+                        $this->purchase_details_DAO_array[$i] = $this->purchase_details_DAO->with_row_all($row[$i]);
+                    }
+
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
                 return false;
             }
@@ -209,6 +225,18 @@
         }
         function get_purchase_details_DAO(){
             return $this->purchase_details_DAO;
+        }
+        function get_purchase_DTO(){
+            return $this->purchase_DAO2DTO($this->purchase_DAO);
+        }
+        function get_purchase_details_DTO(){
+            return $this->purchase_details_DAO2DTO($this->purchase_details_DAO);
+        }
+        function get_purchase_details_DAO_array(){
+            return $this->purchase_details_DAO_array;
+        }
+        function get_array_size(){
+            return count($this->get_purchase_details_DAO_array());
         }
         // Setters
         function set_db_conn($db_conn) {

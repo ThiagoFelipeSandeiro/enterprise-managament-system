@@ -97,8 +97,8 @@
             return $this->sale_facade->create_sale_record($purchase_DTO, $purchase_details_DTO);
         }
 
-        function read_product_record($attribute, $search_string){
-            $this->product_facade->read_product_record($attribute, $search_string);
+        function read_sale_record($attribute, $search_string){
+            return $this->sale_facade->read_sale_record($attribute, $search_string);
         }
 
         function update_product_record($DTO){

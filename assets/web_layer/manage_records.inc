@@ -207,22 +207,74 @@
                 $product_interface->export_to_csv();
                 break;
 
-                // Create Sale
-                case 'create-sale':
-                    if($sale_interface->is_create_valid($_POST)){
-                        $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->with_post($_POST));
-                        $sale_interface->set_purchase_details_DTO($sale_interface->get_purchase_details_DTO()->with_post($_POST));
-                        if($sale_interface->create_sale_record($sale_interface->get_purchase_DTO(), $sale_interface->get_purchase_details_DTO())){
-                            $sale_interface->set_error_message("Record was successfully created.");
-                            $sale_interface->print_error();
-                        }else{
-                            $sale_interface->set_error_message("Record was not created. Please try again.");
-                            $sale_interface->print_error();
-                        }
+            // Create Sale
+            case 'create-sale':
+                if($sale_interface->is_create_valid($_POST)){
+                    $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->with_post($_POST));
+                    $sale_interface->set_purchase_details_DTO($sale_interface->get_purchase_details_DTO()->with_post($_POST));
+                    if($sale_interface->create_sale_record($sale_interface->get_purchase_DTO(), $sale_interface->get_purchase_details_DTO())){
+                        $sale_interface->set_error_message("Record was successfully created.");
+                        $sale_interface->print_error();
                     }else{
+                        $sale_interface->set_error_message("Record was not created. Please try again.");
                         $sale_interface->print_error();
                     }
-                    break; 
+                }else{
+                    $sale_interface->print_error();
+                }
+                break;
+
+            // Display Sale
+            case 'read-sale':
+                if($sale_interface->is_empty($_POST['purchaseID'])){
+                    $sale_interface->print_error();
+                }else{
+                    if(!$sale_interface->read_sale_record('purchaseID', $_POST['purchaseID'])){
+                        $sale_interface->set_error_message("No record with purchase ID of ".$_POST['purchaseID']." was found.");
+                        $sale_interface->print_error();
+                    }else{
+                        // Get Purchase Details
+                        $_SESSION['purchase_ID'] = $sale_interface->get_sale_facade()->get_purchase_DTO()->get_purchaseID();
+                        $_SESSION['date'] = $sale_interface->get_sale_facade()->get_purchase_DTO()->get_date();
+                        $_SESSION['member_ID'] = $sale_interface->get_sale_facade()->get_purchase_DTO()->get_memberID();
+                        
+                        // Get Purchased Products Details
+                        $new_object = array();
+                        $arr = $sale_interface->get_sale_facade()->get_purchase_details_DAO_array();
+                        for($i=0;$i<count($arr); $i++){
+                            echo count($arr);
+                            echo $arr[0];
+                            echo $arr[1];
+                            echo $arr[$i]->get_quantity();
+                        }
+                        foreach($sale_interface->get_sale_facade()->get_purchase_details_DAO_array() as $object){
+                            //echo count($sale_interface->get_sale_facade()->get_purchase_details_DAO_array());
+                            $_SESSION['product_ID'] = $object->get_productID();
+                            $_SESSION['product_quantity'] = $object->get_quantity();
+                            $_SESSION['product_sub_total'] = $object->get_sub_total();
+                            // Get Product Details
+                            $product_interface->read_product_record('productID', $_SESSION['product_ID']);
+                            $_SESSION['product_name'] = $product_interface->get_product_facade()->get_product_DAO()->get_productName();
+                            $_SESSION['product_description'] = $product_interface->get_product_facade()->get_product_DAO()->get_productDescription();
+                            $_SESSION['product_unitCost'] = $product_interface->get_product_facade()->get_product_DAO()->get_productUnitCost();
+                            // push to array
+                            array_push($new_object, $_SESSION['product_ID'], $_SESSION['product_name'],  $_SESSION['product_description'], $_SESSION['product_unitCost'], $_SESSION['product_quantity'], $_SESSION['product_sub_total']);
+                        }
+                        $_SESSION['basket'] = $new_object;
+
+                        // Get Member Details
+                        $member_interface->read_member_record('memberID', $_SESSION['member_ID']);
+                        $_SESSION['member_name'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberName();
+                        $_SESSION['member_address'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberAddress();
+                        $_SESSION['member_email'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberEmail();
+
+
+                        
+                        
+                        //header ('location: display_sale.php');
+                    }
+                }
+                break;
 
             case 'export-sale':
                 $sale_interface->export_to_csv();

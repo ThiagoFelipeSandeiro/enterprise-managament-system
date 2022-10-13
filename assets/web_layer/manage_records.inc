@@ -239,39 +239,35 @@
                         $_SESSION['member_ID'] = $sale_interface->get_sale_facade()->get_purchase_DTO()->get_memberID();
                         
                         // Get Purchased Products Details
-                        $new_object = array();
+                        $new_object = [];
                         $arr = $sale_interface->get_sale_facade()->get_purchase_details_DAO_array();
+
                         for($i=0;$i<count($arr); $i++){
-                            echo count($arr);
-                            echo $arr[0];
-                            echo $arr[1];
-                            echo $arr[$i]->get_quantity();
-                        }
-                        foreach($sale_interface->get_sale_facade()->get_purchase_details_DAO_array() as $object){
-                            //echo count($sale_interface->get_sale_facade()->get_purchase_details_DAO_array());
-                            $_SESSION['product_ID'] = $object->get_productID();
-                            $_SESSION['product_quantity'] = $object->get_quantity();
-                            $_SESSION['product_sub_total'] = $object->get_sub_total();
+
+                            $_SESSION['product_ID'] = $arr[$i]->get_productID();
+                            echo $arr[$i]->get_productID();
+                            $_SESSION['product_quantity'] = $arr[$i]->get_quantity();
+                            $_SESSION['product_sub_total'] = $arr[$i]->get_sub_total();
                             // Get Product Details
                             $product_interface->read_product_record('productID', $_SESSION['product_ID']);
+                            echo $_SESSION['product_ID'];
+                            echo $product_interface->get_product_facade()->get_product_DAO()->get_productID();
                             $_SESSION['product_name'] = $product_interface->get_product_facade()->get_product_DAO()->get_productName();
                             $_SESSION['product_description'] = $product_interface->get_product_facade()->get_product_DAO()->get_productDescription();
                             $_SESSION['product_unitCost'] = $product_interface->get_product_facade()->get_product_DAO()->get_productUnitCost();
                             // push to array
-                            array_push($new_object, $_SESSION['product_ID'], $_SESSION['product_name'],  $_SESSION['product_description'], $_SESSION['product_unitCost'], $_SESSION['product_quantity'], $_SESSION['product_sub_total']);
+                            $new_object[$i] = array( $_SESSION['product_ID'], $_SESSION['product_name'],  $_SESSION['product_description'], $_SESSION['product_unitCost'], $_SESSION['product_quantity'], $_SESSION['product_sub_total']);
                         }
-                        $_SESSION['basket'] = $new_object;
+                        // Session Array
+                        $_SESSION['basket'] = array_values($new_object);
 
                         // Get Member Details
                         $member_interface->read_member_record('memberID', $_SESSION['member_ID']);
                         $_SESSION['member_name'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberName();
                         $_SESSION['member_address'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberAddress();
                         $_SESSION['member_email'] = $member_interface->get_member_facade()->get_member_DAO()->get_memberEmail();
-
-
                         
-                        
-                        //header ('location: display_sale.php');
+                        header ('location: display_sale.php');
                     }
                 }
                 break;

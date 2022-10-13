@@ -83,10 +83,11 @@
                         ."<th scope='col'>Product Sub Total</th>\n"
                         ."</tr>\n";
                   
-                  $arr = array($_SESSION['basket']);
-                  echo $arr[0][1];
+                  $arr = $_SESSION['basket'];
+                  $grand_total=0;
                   //Retrive current records pointed by the result pointer.
                     for($i = 0; $i < count($arr); $i++){
+                      $grand_total += $arr[$i][5];
                       echo "<tr>\n";
                       echo "<td>", $arr[$i][0], "</td>\n";
                       echo "<td>", $arr[$i][1], "</td>\n";
@@ -97,6 +98,15 @@
                       echo "</tr>\n";
                     }
 
+                  // Grant total.
+                  echo "</table>\n";
+                  echo "<table border='1'>\n";
+                  echo "<tr>\n"
+                        ."<th scope='col'>Grand Total</th>\n"
+                        ."</tr>\n";
+                  echo "<tr>\n";
+                  echo "<td>", $grand_total, "</td>\n";
+                  echo "</tr>\n";
                   echo "</table>\n";
 
                   echo "</div>\n";

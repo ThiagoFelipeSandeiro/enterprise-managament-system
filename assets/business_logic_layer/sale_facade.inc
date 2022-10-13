@@ -20,7 +20,7 @@
             $this->db_conn = new ConnectDB();
             $this->purchase_DAO = new PurchaseDAO();
             $this->purchase_details_DAO = new PurchaseDetailsDAO();
-            $this->purchase_details_DAO_array = array();
+            //$this->purchase_details_DAO_array = array();
         }
 
         // Default Destructor
@@ -115,10 +115,13 @@
                 $result = mysqli_query($this->db_conn->get_conn(), $command);
                 $row = mysqli_fetch_all($result);
                 if($row != NULL){
+                    $temp_array = array();
                     for($i = 0; $i < count($row); $i++){
-                        $this->purchase_details_DAO_array[$i] = new PurchaseDetailsDAO();
-                        $this->purchase_details_DAO_array[$i] = $this->purchase_details_DAO->with_row_all($row[$i]);
+                        $temp_array[$i] = new PurchaseDetailsDAO();
+                        $temp_array[$i] = $this->purchase_details_DAO->with_row_all($row[$i]);
                     }
+                    $this->purchase_details_DAO_array = array_values($temp_array);
+                    $test =  $this->get_purchase_details_DAO_array();
 
                     return true;
                 }else{

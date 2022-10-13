@@ -24,8 +24,8 @@
         // Custom Constructor
         public static function with_row_all($row) {
             $instance = new self();
-            $instance->set_productID($row[0]);
-            $instance->set_purchaseID($row[1]);
+            $instance->set_purchaseID($row[0]);
+            $instance->set_productID($row[1]);
             $instance->set_quantity($row[2]);
             $instance->set_sub_total($row[3]);
             return $instance;

@@ -167,20 +167,23 @@
             }
         }
 
-        function delete_product_record($attribute, $search_string){
-            if(!$this->read_product_record($attribute, $search_string)){
+
+        function delete_sale_record($attribute, $search_string){
+            if(!$this->read_sale_record($attribute, $search_string)){
                 return false;
             }else{
-                $command = "DELETE FROM Product WHERE $attribute = '$search_string';";
-                //Return the result from the query.
-                if(mysqli_query($this->db_conn->get_conn(), $command)){
+                $command1 = "DELETE FROM purchased_products WHERE $attribute = '$search_string';";
+                $command2= "DELETE FROM purchase WHERE $attribute = '$search_string';";
+                //DELETE FROM purchase WHERE $attribute = '$search_string';";
+                if(mysqli_query($this->db_conn->get_conn(), $command1) && mysqli_query($this->db_conn->get_conn(), $command2)){
                     return true;
                 }else{
                     return false;
                 }
+ 
             }
-            
-	    }
+  
+        }
 
         function export_to_csv(){
             echo "Placeholder. Function will export sales related tables to CSV";

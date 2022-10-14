@@ -272,6 +272,20 @@
                 }
                 break;
 
+            case 'delete-sale':
+                if($sale_interface->is_empty($_POST['purchaseID'])){
+                    $sale_interface->print_error();
+                }else{
+                    if($sale_interface->delete_sale_record('purchaseID', $_POST['purchaseID'])){
+                        $sale_interface->set_error_message("Record with purchase ID of ".$_POST['purchaseID']." was deleted.");
+                        $sale_interface->print_error();
+                    }else{
+                        $sale_interface->set_error_message("No record with purchase ID of ".$_POST['purchaseID']." was found.");
+                        $sale_interface->print_error();
+                    }
+                }
+                break;
+
             case 'export-sale':
                 $sale_interface->export_to_csv();
                 break;

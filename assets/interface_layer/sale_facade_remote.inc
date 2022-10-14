@@ -105,8 +105,8 @@
             return $this->product_facade->update_product_record($DTO);
         }
 
-        function delete_product_record($attribute, $search_string){
-            return $this->product_facade->delete_product_record($attribute, $search_string);
+        function delete_sale_record($attribute, $search_string){
+            return $this->sale_facade->delete_sale_record($attribute, $search_string);
         }
 
         function export_to_csv(){

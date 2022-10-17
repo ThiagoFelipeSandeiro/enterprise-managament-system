@@ -109,8 +109,12 @@
             return $this->sale_facade->delete_sale_record($attribute, $search_string);
         }
 
-        function export_to_csv(){
-            return $this->sale_facade->export_to_csv();
+        function export_purchase_to_csv(){
+            return $this->sale_facade->export_purchase_to_csv();
+        }
+
+         function export_purchase_details_to_csv(){
+            return $this->sale_facade->export_purchase_details_to_csv();
         }
 
         // Getters

@@ -43,7 +43,7 @@
                           <input type='radio' name='CRUD' value='read-employee' />Display
                           <input type='radio' name='CRUD' value='update-employee' />Update
                           <input type='radio' name='CRUD' value='delete-employee' />Delete
-                          <input type='submit' name='CRUD' value='export-employee' />
+                          <button type='submit' name='CRUD' value='export-employee'>Export Employees</button>
                           <br/><br/>
                           <div id='employee-details-btn'></div>
                       </fieldset>
@@ -65,7 +65,7 @@
                           <input type='radio' name='CRUD' value='read-member' />Display
                           <input type='radio' name='CRUD' value='update-member' />Update
                           <input type='radio' name='CRUD' value='delete-member' />Delete
-                          <input type='submit' name='CRUD' value='export-member' />
+                          <button type='submit' name='CRUD' value='export-member'>Export Members</button>
                           <br/><br/>
                           <div id='member-details-btn'></div>
                       </fieldset>
@@ -87,7 +87,7 @@
                           <input type='radio' name='CRUD' value='read-product' />Display
                           <input type='radio' name='CRUD' value='update-product' />Update
                           <input type='radio' name='CRUD' value='delete-product' />Delete
-                          <input type='submit' name='CRUD' value='export-product' />
+                          <button type='submit' name='CRUD' value='export-product'>Export Products</button>
                           <br/><br/>
                         <div id='product-details-btn'></div>
                       </fieldset>
@@ -109,7 +109,8 @@
                           <input type='radio' name='CRUD' value='read-sale' />Display
                           <input type='radio' name='CRUD' value='update-sale' />Update
                           <input type='radio' name='CRUD' value='delete-sale' />Delete
-                          <input type='submit' name='CRUD' value='export-sale' />
+                          <button type='submit' name='CRUD' value='export-purchase'>Export Purchases</button>
+                          <button type='submit' name='CRUD' value='export-purchase-details'>Export Purchase Details</button>
                           <br/><br/>
                         <div id='sale-details-btn'></div>
                       </fieldset>

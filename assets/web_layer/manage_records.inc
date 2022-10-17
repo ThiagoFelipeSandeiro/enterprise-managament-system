@@ -286,8 +286,11 @@
                 }
                 break;
 
-            case 'export-sale':
-                $sale_interface->export_to_csv();
+            case 'export-purchase':
+                $sale_interface->export_purchase_to_csv();
+                break;
+            case 'export-purchase-details':
+                $sale_interface->export_purchase_details_to_csv();
                 break;
         }
     }

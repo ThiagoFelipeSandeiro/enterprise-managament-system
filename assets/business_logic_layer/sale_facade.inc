@@ -185,9 +185,38 @@
   
         }
 
-        function export_to_csv(){
-            echo "Placeholder. Function will export sales related tables to CSV";
-            return true;
+        function export_purchase_to_csv(){
+            //stack overflow Franksenstein code but it works
+            header('Content-Type: text/csv; charset=utf-8');  
+            header('Content-Disposition: attachment; filename=purchase.csv');  
+            //cleaning output buffer so whole web page isn't exported
+            ob_end_clean();
+            $output = fopen("php://output", "w");  
+            fputcsv($output, array('Purchase ID', 'Purchase Date', 'Purchase Member ID'));  
+            $command = "SELECT * FROM purchase";  
+            $result = mysqli_query($this->db_conn->get_conn(), $command); 
+            while($row = mysqli_fetch_assoc($result)){  
+                fputcsv($output, $row);  
+            }  
+            fclose($output);  
+            exit;
+        }
+
+        function export_purchase_details_to_csv(){
+            //stack overflow Franksenstein code but it works
+            header('Content-Type: text/csv; charset=utf-8');  
+            header('Content-Disposition: attachment; filename=purchase_details.csv');  
+            //cleaning output buffer so whole web page isn't exported
+            ob_end_clean();
+            $output = fopen("php://output", "w");  
+            fputcsv($output, array('Purchase ID', 'Product ID', 'Quantity', 'Sub Total'));  
+            $command = "SELECT * FROM purchased_products";  
+            $result = mysqli_query($this->db_conn->get_conn(), $command); 
+            while($row = mysqli_fetch_assoc($result)){  
+                fputcsv($output, $row);  
+            }  
+            fclose($output);  
+            exit;
         }
 
         private function purchase_DAO2DTO($DAO){

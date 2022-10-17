@@ -93,8 +93,20 @@
 	    }
 
         function export_to_csv(){
-            echo "Placeholder. Function will export Member table to CSV";
-            return true;
+            //stack overflow Franksenstein code but it works
+            header('Content-Type: text/csv; charset=utf-8');  
+            header('Content-Disposition: attachment; filename=member.csv');  
+            //cleaning output buffer so whole web page isn't exported
+            ob_end_clean();
+            $output = fopen("php://output", "w");  
+            fputcsv($output, array('Member ID', 'Member Name', 'Member Address', 'Member Email'));  
+            $command = "SELECT * FROM member";  
+            $result = mysqli_query($this->db_conn->get_conn(), $command); 
+            while($row = mysqli_fetch_assoc($result)){  
+                fputcsv($output, $row);  
+            }  
+            fclose($output);  
+            exit;
         }
 
         function DAO2DTO($DAO){

@@ -272,6 +272,20 @@
                 }
                 break;
 
+            case 'update-sale':
+                if($sale_interface->is_empty($_POST['purchaseID'])){
+                    $sale_interface->print_error();
+                }else{
+                    if($sale_interface->update_sale_record('purchaseID', $_POST['purchaseID'])){
+                        $sale_interface->set_error_message("Record with purchase ID of ".$_POST['purchaseID']." was updated.");
+                        $sale_interface->print_error();
+                    }else{
+                        $sale_interface->set_error_message("No record with purchase ID of ".$_POST['purchaseID']." was found.");
+                        $sale_interface->print_error();
+                    }
+                }
+                break;
+
             case 'delete-sale':
                 if($sale_interface->is_empty($_POST['purchaseID'])){
                     $sale_interface->print_error();

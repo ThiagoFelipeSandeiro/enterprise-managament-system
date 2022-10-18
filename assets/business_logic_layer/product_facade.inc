@@ -25,7 +25,7 @@
         // METHOD
         function create_product_record($DTO){
             $this->set_product_DAO($this->DTO2DAO($DTO));
-            $command = "INSERT INTO Product (productName, description, unitCost, quantityOnHand, supplier) VALUES 
+            $command = "INSERT INTO Product (productName, productDescription, productUnitCost, productQuantityOnHand, productSupplier) VALUES 
             ('".$this->product_DAO->get_productName()."',
             '".$this->product_DAO->get_productDescription()."',
             ".$this->product_DAO->get_productUnitCost().",

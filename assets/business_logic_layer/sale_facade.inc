@@ -69,7 +69,7 @@
                 ( ".$this->db_conn->get_conn()->insert_id.",
                 ".$this->purchase_details_DAO->get_productID()." ,
                 ".$this->purchase_details_DAO->get_quantity()." ,
-                (select p.productUnitCost from product AS p WHERE p.productID = 1)*".$this->purchase_details_DAO->get_quantity().");";
+                (select p.productUnitCost from product AS p WHERE p.productID = ".$this->purchase_details_DAO->get_productID().")*".$this->purchase_details_DAO->get_quantity().");";
             if(!mysqli_query($this->db_conn->get_conn(), $command)){
                 $this->db_conn->get_conn()->rollback();
                 // Turn autocommit on
@@ -132,49 +132,70 @@
             }
         }
 
-        function update_sale_record($DTO){
-            if(!$this->read_sale_record('purchaseID', $DTO->get_purchaseID())){
-            return false;
-            }else{
-                echo "here";
-                return true;
-            }    
+        function update_sale_record($purchase_DTO, $purchase_details_DTO){
+
+            // Set DAOs
+            $this->set_purchase_DAO($this->purchase_DTO2DAO($purchase_DTO));
+            $this->set_purchase_details_DAO($this->purchase_details_DTO2DAO($purchase_details_DTO));
+
+            // Get Stock Level for product
+            $command = "SELECT IF(productQuantityOnHand > ".$this->purchase_details_DAO->get_quantity().", TRUE, FALSE) AS bool FROM product WHERE productID = ".$this->purchase_details_DAO->get_productID().";";
+            $result = mysqli_query($this->db_conn->get_conn(), $command);
+            if(!$result){
+                return false;
+            }
+            $row = $result->fetch_assoc();
+
+            if(!$row["bool"]){
+                $result->free_result();
+                //Stock too low
+                echo '<script type="text/javascript">alert("Stock too low");</script>';
+                return false;
+            }
+            
+            // Turn autocommit off
+            $this->db_conn->get_conn()->autocommit(FALSE);
+            // Start Transaction
+            $this->db_conn->get_conn()->begin_transaction();
+                        
+            // Set purchaseID.
+            $command = "INSERT INTO purchased_products (purchaseID, productID, quantity, subTotal) VALUES
+                ( ".$purchase_DTO->get_purchaseID().",
+                ".$this->purchase_details_DAO->get_productID()." ,
+                ".$this->purchase_details_DAO->get_quantity()." ,
+                (select p.productUnitCost from product AS p WHERE p.productID = ".$this->purchase_details_DAO->get_productID().")*".$this->purchase_details_DAO->get_quantity().");";
+            if(!mysqli_query($this->db_conn->get_conn(), $command)){
+                $this->db_conn->get_conn()->rollback();
+                // Turn autocommit on
+                $this->db_conn->get_conn()->autocommit(TRUE);
+                return false;
+            }
+
+            // Get current stock level.
+            $command = "SET @stock_level = (select productQuantityOnHand from product WHERE productID = ".$this->purchase_details_DAO->get_productID().");";
+            if(!mysqli_query($this->db_conn->get_conn(), $command)){
+                $this->db_conn->get_conn()->rollback();
+                // Turn autocommit on
+                $this->db_conn->get_conn()->autocommit(TRUE);
+                return false;
+            }
+            // Set new stock level.
+            $command = "UPDATE product AS p SET p.productQuantityOnHand = @stock_level - ".$this->purchase_details_DAO->get_quantity()." WHERE p.productID = ".$this->purchase_details_DAO->get_productID().";";
+            if(!mysqli_query($this->db_conn->get_conn(), $command)){
+                $this->db_conn->get_conn()->rollback();
+                // Turn autocommit on
+                $this->db_conn->get_conn()->autocommit(TRUE);
+                return false;
+            }
+        
+            /* If code reaches this point without errors then commit the data in the database */
+            $this->db_conn->get_conn()->commit();
+            // Turn autocommit on
+            $this->db_conn->get_conn()->autocommit(TRUE);
+            return true;
         }
 
-        function update_product_record($DTO){
-            if(!$this->read_product_record('productID', $DTO->get_productID())){
-                return false;
-            }else{
-                if(!empty($DTO->get_productName())){
-                    $this->product_DAO->set_productName($DTO->get_productName());
-                }
-                if(!empty($DTO->get_productDescription())){
-                    $this->product_DAO->set_productDescription($DTO->get_productDescription());
-                }
-                if($DTO->get_productUnitCost() > 0){
-                    $this->product_DAO->set_productUnitCost($DTO->get_productUnitCost());
-                }
-                if($DTO->get_productQuantityOnHand() >= 0){
-                    $this->product_DAO->set_productQuantityOnHand($DTO->get_productQuantityOnHand());
-                }
-                if(!empty($DTO->get_productSupplier())){
-                    $this->product_DAO->set_productSupplier($DTO->get_productSupplier());
-                }
-                $command = "UPDATE Product 
-                    SET productName = '".$this->product_DAO->get_productName()."',
-                    description = '".$this->product_DAO->get_productDescription()."',
-                    unitCost = '".$this->product_DAO->get_productUnitCost()."',
-                    quantityOnHand = '".$this->product_DAO->get_productQuantityOnHand()."',
-                    supplier = '".$this->product_DAO->get_productSupplier()."'
-                    WHERE productID = '".$this->product_DAO->get_productID()."';";
-                //Return the result from the query.
-                if(mysqli_query($this->db_conn->get_conn(), $command)){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        }
+        
 
 
         function delete_sale_record($attribute, $search_string){

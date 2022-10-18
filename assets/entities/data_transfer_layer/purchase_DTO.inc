@@ -19,7 +19,15 @@
             return $instance;
         }
         // Custom Constructor
-        public static function with_post($post) {
+        public static function create_with_post($post) {
+            $instance = new self();
+            //$instance->set_purchaseID($post['purchaseID']);
+            //$instance->set_date($post['date']);
+            $instance->set_memberID($post['memberID']);
+            return $instance;
+	    }
+
+        public static function update_with_post($post) {
             $instance = new self();
             $instance->set_purchaseID($post['purchaseID']);
             //$instance->set_date($post['date']);

@@ -11,7 +11,7 @@
     <meta name="description" content="Go-to-Gro EMS | Login Page" />
     <meta name="keywords" content="" />
     <meta name="author" content="James Sanders" />
-    <meta name="author" content="Michael " />
+    <meta name="author" content="Michael Gorissen" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 

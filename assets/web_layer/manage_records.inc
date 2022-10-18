@@ -273,16 +273,19 @@
                 break;
 
             case 'update-sale':
-                if($sale_interface->is_empty($_POST['purchaseID'])){
+                 if($sale_interface->is_empty($_POST['purchaseID'])){
                     $sale_interface->print_error();
-                }else{
-                    if($sale_interface->update_sale_record('purchaseID', $_POST['purchaseID'])){
-                        $sale_interface->set_error_message("Record with purchase ID of ".$_POST['purchaseID']." was updated.");
+                }elseif($sale_interface->is_update_valid($_POST)){
+                    $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->with_post($_POST));
+                    if($sale_interface->update_sale_record($sale_interface->get_purchase_DTO())){
+                        $sale_interface->set_error_message("Record with sale ID of ".$sale_interface->get_purchase_DTO()->get_purchaseID()." was updated.");
                         $sale_interface->print_error();
                     }else{
-                        $sale_interface->set_error_message("No record with purchase ID of ".$_POST['purchaseID']." was found.");
+                        $sale_interface->set_error_message("No record with sale ID of ".$sale_interface->get_purchase_DTO()->get_purchaseID()." was found.");
                         $sale_interface->print_error();
                     }
+                }else{
+                    $sale_interface->print_error();
                 }
                 break;
 

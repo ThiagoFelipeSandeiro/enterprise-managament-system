@@ -132,6 +132,11 @@
             }
         }
 
+        function update_sale_record($attribute, $search_string){
+            echo("here");
+            return true;    
+        }
+
         function update_product_record($DTO){
             if(!$this->read_product_record('productID', $DTO->get_productID())){
                 return false;

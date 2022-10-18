@@ -187,8 +187,7 @@ function change() {
           document.getElementById("sale-details").innerHTML =
               "<label for='purchaseID'>Purchase ID</label>" +
               "<input type='text' name='purchaseID' placeholder='Purchase ID...'/><br /><br />" +
-              "<label for='memberID'>ID</label> " +
-              "<input type='text' name='memberID' placeholder='Member ID...' /><br /><br />" +
+              "<input type='hidden' name='memberID' placeholder='Member ID...' />" +
               "<label class='product_ID' for='productID'>ID</label> " +
               "<input type='text' name='productID' placeholder='Product ID...' /> <button type='button' onclick='add_product_to_cart()' >Add Product</button> <br /><br />" +
               "<label for='quantity'>Quantity</label> " +

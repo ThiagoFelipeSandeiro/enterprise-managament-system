@@ -28,14 +28,12 @@
 
         // METHODS
 
-        //TODO fix update valid
-        //currently no real check for valid number but somehow still works
-        //entering in an invalid number will not overwrite database entry
         function is_update_valid($post){
-            if(empty($post['productName']) && empty($post['productDescription']) && empty($post['productSupplier'])){
+            if(empty($post['purchaseID'])){
+                return false;
+            }else{
                 return true;
-            }
-            return true;
+                }
         }
 
         function is_create_valid($post){
@@ -101,8 +99,8 @@
             return $this->sale_facade->read_sale_record($attribute, $search_string);
         }
 
-        function update_sale_record($attribute, $search_string){
-            return $this->sale_facade->update_sale_record($attribute, $search_string);
+        function update_sale_record($DTO){
+            return $this->sale_facade->update_sale_record($DTO);
         }
 
         function delete_sale_record($attribute, $search_string){

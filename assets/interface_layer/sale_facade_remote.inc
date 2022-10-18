@@ -101,8 +101,8 @@
             return $this->sale_facade->read_sale_record($attribute, $search_string);
         }
 
-        function update_product_record($DTO){
-            return $this->product_facade->update_product_record($DTO);
+        function update_sale_record($attribute, $search_string){
+            return $this->sale_facade->update_sale_record($attribute, $search_string);
         }
 
         function delete_sale_record($attribute, $search_string){

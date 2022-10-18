@@ -210,7 +210,7 @@
             // Create Sale
             case 'create-sale':
                 if($sale_interface->is_create_valid($_POST)){
-                    $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->with_post($_POST));
+                    $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->create_with_post($_POST));
                     $sale_interface->set_purchase_details_DTO($sale_interface->get_purchase_details_DTO()->with_post($_POST));
                     if($sale_interface->create_sale_record($sale_interface->get_purchase_DTO(), $sale_interface->get_purchase_details_DTO())){
                         $sale_interface->set_error_message("Record was successfully created.");
@@ -276,8 +276,9 @@
                  if($sale_interface->is_empty($_POST['purchaseID'])){
                     $sale_interface->print_error();
                 }elseif($sale_interface->is_update_valid($_POST)){
-                    $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->with_post($_POST));
-                    if($sale_interface->update_sale_record($sale_interface->get_purchase_DTO())){
+                    $sale_interface->set_purchase_DTO($sale_interface->get_purchase_DTO()->update_with_post($_POST));
+                    $sale_interface->set_purchase_details_DTO($sale_interface->get_purchase_details_DTO()->with_post($_POST));
+                    if($sale_interface->update_sale_record($sale_interface->get_purchase_DTO(), $sale_interface->get_purchase_details_DTO())){
                         $sale_interface->set_error_message("Record with sale ID of ".$sale_interface->get_purchase_DTO()->get_purchaseID()." was updated.");
                         $sale_interface->print_error();
                     }else{

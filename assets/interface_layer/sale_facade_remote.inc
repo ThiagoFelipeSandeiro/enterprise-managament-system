@@ -99,8 +99,8 @@
             return $this->sale_facade->read_sale_record($attribute, $search_string);
         }
 
-        function update_sale_record($DTO){
-            return $this->sale_facade->update_sale_record($DTO);
+        function update_sale_record($purchase_DTO, $purchase_details_DTO){
+            return $this->sale_facade->update_sale_record($purchase_DTO, $purchase_details_DTO);
         }
 
         function delete_sale_record($attribute, $search_string){
